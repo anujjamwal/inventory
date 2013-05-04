@@ -1,0 +1,13 @@
+%table.table.table-bordered
+  %caption ...
+  %thead
+    %tr
+      %th S.No
+      %th Name
+  %tbody
+    - @asset_types.each_with_index do |asset_type, index|
+      %tr
+        %td 
+          = index
+        %td 
+          = asset_type.name

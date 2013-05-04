@@ -10,7 +10,7 @@ describe AssetTypesController do
   it "should create a new asset tyep" do
     post :create, :asset_type => {:name => "Keyboard"}
     
-    response.should redirect_to(new_asset_type_path)
+    response.should redirect_to(asset_types_path)
     AssetType.where(:name => "Keyboard").size.should == 1
   end
   
@@ -25,5 +25,13 @@ describe AssetTypesController do
     AssetType.count.should == 0
     
     AssetType.unstub :new
+  end
+  
+  it "should list the asset types" do
+    AssetType.should_receive(:all).and_call_original
+    
+    get :index
+    
+    response.should be_success
   end
 end
