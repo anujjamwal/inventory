@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130504101032) do
+ActiveRecord::Schema.define(version: 20130504112510) do
 
   create_table "asset_attributes", force: true do |t|
     t.string   "name"
@@ -19,9 +19,9 @@ ActiveRecord::Schema.define(version: 20130504101032) do
     t.boolean  "required"
     t.string   "value_fill_expression"
     t.string   "default_value"
-    t.integer  "asset_type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "attribute_group_id"
   end
 
   create_table "asset_types", force: true do |t|
@@ -34,6 +34,8 @@ ActiveRecord::Schema.define(version: 20130504101032) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "attribute_group_id"
+    t.integer  "asset_type_id"
   end
 
 end
