@@ -1,0 +1,9 @@
+= form_for @asset_type, html: {class: "form-horizontal"} do |t|
+  .control-group
+    %label.control-label{:for => "name"} Name
+    .controls
+      = t.text_field :name, id: "name"
+  .control-group
+    .controls
+      = t.submit "Create", class: "btn btn-primary"
+	
