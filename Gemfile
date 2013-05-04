@@ -10,6 +10,13 @@ group :test do
   gem 'pry'
 end
 
+group :cucumber do
+  gem 'cucumber'
+  gem 'capybara'
+  gem 'gizmo'
+  gem 'term-ansicolor'
+end
+
 gem 'sqlite3'
 
 gem 'protected_attributes'
