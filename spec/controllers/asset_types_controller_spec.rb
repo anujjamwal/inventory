@@ -15,7 +15,7 @@ describe AssetTypesController do
   end
   
   it "should render the new template if save call fails" do
-    at = asset_type
+    at = new_asset_type false
     AssetType.stub :new => at
     at.should_receive(:save).and_return(false)
     

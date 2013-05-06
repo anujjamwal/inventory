@@ -7,7 +7,6 @@ class CreateAssets < ActiveRecord::Migration
       t.references :asset_type
       t.references :attribute_group 
       t.datetime :procurement_date
-      t.datetime :warranty_start
 
       t.timestamps
     end

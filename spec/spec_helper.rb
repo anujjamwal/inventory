@@ -41,6 +41,8 @@ RSpec.configure do |config|
   config.order = "random"
 end
 
-def asset_type
-  AssetType.new :name => "name"
+def new_asset_type create=true
+  asset_type = AssetType.new :name => "name"
+  asset_type.save! if create
+  asset_type
 end

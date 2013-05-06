@@ -1,0 +1,28 @@
+= form_for @asset, url: "", html: {class: "form-horizontal"} do |t|
+	- input_groups = @asset.attribute_group.attribute_groups
+
+	.tabbable
+		%ul.nav.nav-tabs
+			%li.active
+				%a{"data-toggle" => "tab", :href => "#tab_essentials"} Essentials
+			- (input_groups.collect(&:name)||[]).each_with_index do |name, index|
+				%li
+					%a{"data-toggle" => "tab", :href => "#tab_#{name.snake_case}"} 
+						= name
+
+		.tab-content
+			#tab_essentials.tab-pane.active
+				%p first tab
+			= t.fields_for :data do |f|
+				- input_groups.each_with_index do |group, index|
+					.tab-pane{:id => "tab_#{group.name.snake_case}"}
+						- group.asset_attributes.each do |asset_attribute|
+							.control-group
+								- key = asset_attribute.name.snake_case
+								= f.label key, asset_attribute.name, class: "control-label"
+								.controls
+									= f.text_field key, id: key
+
+	.control-group
+		.controls
+			= t.submit "Create", class: "btn btn-primary btn-large"

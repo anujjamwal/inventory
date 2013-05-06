@@ -1,5 +1,6 @@
 Inventory::Application.routes.draw do
   resources :asset_types, :only => [:new, :create, :index]
+  get 'blueprints/:blueprint_id/assets/new' => 'assets#new', as: :new_blueprint_asset
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
