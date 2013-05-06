@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130504112510) do
+ActiveRecord::Schema.define(version: 20130506174729) do
 
   create_table "asset_attributes", force: true do |t|
     t.string   "name"
@@ -26,6 +26,18 @@ ActiveRecord::Schema.define(version: 20130504112510) do
 
   create_table "asset_types", force: true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "assets", force: true do |t|
+    t.string   "name"
+    t.string   "serial"
+    t.text     "data"
+    t.integer  "asset_type_id"
+    t.integer  "attribute_group_id"
+    t.datetime "procurement_date"
+    t.datetime "warranty_start"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
