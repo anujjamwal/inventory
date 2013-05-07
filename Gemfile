@@ -8,6 +8,7 @@ group :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'pry'
+  gem 'factory_girl_rails'
 end
 
 group :cucumber do
