@@ -1,7 +1,7 @@
 class Asset < ActiveRecord::Base
   serialize :data
   
-  attr_accessible :name, :serial, :procurement_date, :warranty_start
+  attr_accessible :name, :serial, :procurement_date
   
   belongs_to :asset_type
   belongs_to :attribute_group

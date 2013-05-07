@@ -12,7 +12,19 @@
 
 		.tab-content
 			#tab_essentials.tab-pane.active
-				%p first tab
+				.control-group
+					= t.label :name, "Name", class: "control-label"
+					.controls
+						= t.text_field :name
+				.control-group
+					= t.label :serial, "Serial No.", class: "control-label"
+					.controls
+						= t.text_field :serial, required: :required
+				.control-group
+					= t.label :procurement_date, "Procurement Date", class: "control-label"
+					.controls
+						= t.text_field :procurement_date, required: :required
+						
 			= t.fields_for :data do |f|
 				- input_groups.each_with_index do |group, index|
 					.tab-pane{:id => "tab_#{group.name.snake_case}"}
@@ -21,7 +33,9 @@
 								- key = asset_attribute.name.snake_case
 								= f.label key, asset_attribute.name, class: "control-label"
 								.controls
-									= f.text_field key, id: key
+									- params = {id: key}
+									- params[:required]= :required if asset_attribute.required?
+									= f.text_field key, params
 
 	.control-group
 		.controls
