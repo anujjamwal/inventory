@@ -1,5 +1,5 @@
 = form_for @asset, url: "", html: {class: "form-horizontal"} do |t|
-	- input_groups = @asset.attribute_group.attribute_groups
+	- input_groups = @asset.form_attributes_group.form_attributes_groups
 
 	.tabbable
 		%ul.nav.nav-tabs
@@ -28,12 +28,12 @@
 			= t.fields_for :data do |f|
 				- input_groups.each_with_index do |group, index|
 					.tab-pane{:id => "tab_#{group.name.snake_case}"}
-						- group.asset_attributes.each do |asset_attribute|
+						- group.form_attributes.each do |asset_attribute|
 							.control-group
 								- key = asset_attribute.name.snake_case
 								= f.label key, asset_attribute.name, class: "control-label"
 								.controls
-									- params = {id: key}
+									- params = {id:  "asset_#{key}", type: asset_attribute.input_element_type}
 									- params[:required]= :required if asset_attribute.required?
 									= f.text_field key, params
 

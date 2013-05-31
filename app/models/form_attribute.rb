@@ -1,4 +1,4 @@
-class AssetAttribute < ActiveRecord::Base
+class FormAttribute < ActiveRecord::Base
   attr_accessible :name, :input_element_type, :required, :value_fill_expression, :default_value
   
   validates_presence_of :name

@@ -3,5 +3,5 @@ class AssetType < ActiveRecord::Base
 
   validates_presence_of :name
   
-  has_many :blueprints, class_name: AttributeGroup, foreign_key: :asset_type_id
+  has_many :forms, class_name: FormAttributesGroup
 end
