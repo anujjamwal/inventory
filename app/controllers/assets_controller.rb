@@ -4,4 +4,8 @@ class AssetsController < ApplicationController
     @form = @asset_type.forms.last
     @asset = @asset_type.assets.new
   end
+
+  def create
+
+  end
 end
