@@ -52,11 +52,11 @@
 }.each do |k,v|
   asset_type = AssetType.find_or_create_by_name(k)
   v.each do |k1,v1|
-    blueprint = asset_type.blueprints.find_or_create_by_name(k1)
+    form = asset_type.forms.find_or_create_by_name(k1)
     v1.each do |k2,v2|
-      attr_group = blueprint.attribute_groups.find_or_create_by_name(k2)
+      attr_group = form.form_attributes_groups.find_or_create_by_name(k2)
       v2.each do |v3|
-        attr_group.asset_attributes.create v3
+        attr_group.form_attributes.create v3
       end
     end
   end
