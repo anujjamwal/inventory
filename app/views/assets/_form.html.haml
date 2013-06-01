@@ -1,13 +1,13 @@
 %legend
 	= @asset_type.name
-= form_for @asset, url: "", html: {class: "form-horizontal"} do |t|
-	- input_groups = @form.form_attributes_groups
+= form_for [@asset_type, @asset], html: {class: "form-horizontal"} do |t|
+	- input_groups = @asset.asset_attributes_groups.load
 
 	.tabbable
 		%ul.nav.nav-tabs
 			%li.active
 				%a{"data-toggle" => "tab", :href => "#tab_essentials"} Essentials
-			- (input_groups.collect(&:name)||[]).each_with_index do |name, index|
+			- (input_groups.collect(&:name)||[]).each do |name|
 				%li
 					%a{"data-toggle" => "tab", :href => "#tab_#{name.snake_case}"} 
 						= name
@@ -26,18 +26,23 @@
 					= t.label :procurement_date, "Procurement Date", class: "control-label"
 					.controls
 						= t.text_field :procurement_date, required: :required, type: :date
-						
-			= t.fields_for :data do |f|
-				- input_groups.each_with_index do |group, index|
+			- input_groups.each do |group|
+				= t.fields_for 'asset_attributes_groups[]', group do |f|
 					.tab-pane{:id => "tab_#{group.name.snake_case}"}
-						- group.form_attributes.each do |asset_attribute|
-							.control-group
-								- key = asset_attribute.name.snake_case
-								= f.label key, asset_attribute.name, class: "control-label"
-								.controls
-									- params = {id:  "asset_#{key}", type: asset_attribute.input_element_type}
-									- params[:required]= :required if asset_attribute.required?
-									= f.text_field key, params
+						= f.hidden_field :form_attributes_group_id
+						= f.hidden_field :name
+						- group.asset_attributes.load.each do |asset_attribute|
+							= f.fields_for 'asset_attributes[]', asset_attribute do |g|
+								- form_attribute = asset_attribute.form_attribute
+								.control-group
+									= g.hidden_field :name
+									= g.hidden_field :form_attribute_id
+									- key = form_attribute.name.snake_case
+									= g.label :value, form_attribute.name, class: "control-label"
+									.controls
+										- params = {id:  "asset_#{key}", type: form_attribute.input_element_type}
+										- params[:required]= :required if form_attribute.required?
+										= g.text_field :value, params
 
 	.control-group
 		.controls

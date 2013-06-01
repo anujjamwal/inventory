@@ -20,9 +20,6 @@ end
 
 gem 'sqlite3'
 
-gem 'protected_attributes'
-
-
 gem 'haml-rails'
 gem 'bootstrap-sass'
 

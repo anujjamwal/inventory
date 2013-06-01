@@ -1,5 +1,5 @@
 class FormAttribute < ActiveRecord::Base
-  attr_accessible :name, :input_element_type, :required, :value_fill_expression, :default_value
+  #attr_accessible :name, :input_element_type, :required, :value_fill_expression, :default_value
   
   validates_presence_of :name
   validates_presence_of :input_element_type
@@ -9,4 +9,6 @@ class FormAttribute < ActiveRecord::Base
   rescue 
     nil
   end
+
+
 end

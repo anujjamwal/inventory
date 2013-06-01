@@ -37,6 +37,22 @@
           :value_fill_expression => "",
           :default_value => ""        
         }
+      ],
+      "Second" => [
+        {
+          :name => "Model",
+          :input_element_type => :text,
+          :required => true,
+          :value_fill_expression => "",
+          :default_value => ""
+        },
+        {
+          :name => "Warranty",
+          :input_element_type => :text,
+          :required => true,
+          :value_fill_expression => "",
+          :default_value => ""
+        },
       ]
     }
   },
