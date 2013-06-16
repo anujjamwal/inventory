@@ -5,34 +5,19 @@
 
 	.tabbable
 		%ul.nav.nav-tabs
-			%li.active
-				%a{"data-toggle" => "tab", :href => "#tab_essentials"} Essentials
-			- (input_groups.collect(&:name)||[]).each do |name|
+			- (input_groups.pluck(:name)||[]).each do |name|
 				%li
 					%a{"data-toggle" => "tab", :href => "#tab_#{name.snake_case}"} 
 						= name
 
 		.tab-content
-			#tab_essentials.tab-pane.active
-				.control-group
-					= t.label :name, "Name", class: "control-label"
-					.controls
-						= t.text_field :name
-				.control-group
-					= t.label :serial, "Serial No.", class: "control-label"
-					.controls
-						= t.text_field :serial, required: :required
-				.control-group
-					= t.label :procurement_date, "Procurement Date", class: "control-label"
-					.controls
-						= t.text_field :procurement_date, required: :required, type: :date
 			- input_groups.each do |group|
-				= t.fields_for 'asset_attributes_groups[]', group do |f|
+				= t.fields_for 'asset_attributes_groups_attributes[]', group do |f|
 					.tab-pane{:id => "tab_#{group.name.snake_case}"}
 						= f.hidden_field :form_attributes_group_id
 						= f.hidden_field :name
 						- group.asset_attributes.load.each do |asset_attribute|
-							= f.fields_for 'asset_attributes[]', asset_attribute do |g|
+							= f.fields_for 'asset_attributes_attributes[]', asset_attribute do |g|
 								- form_attribute = asset_attribute.form_attribute
 								.control-group
 									= g.hidden_field :name

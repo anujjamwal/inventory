@@ -77,3 +77,7 @@
     end
   end
 end
+
+['Apple', 'Dell'].each do |company|
+  Company.where(name: company).first_or_create
+end

@@ -1,12 +1,14 @@
 class Asset < ActiveRecord::Base
   belongs_to :asset_type
   has_many :asset_attributes_groups
+  has_many :asset_attributes, through: :asset_attributes_groups
 
-  validates_presence_of :name
-  validates_presence_of :serial
+  default_scope :include => [:asset_attributes]
 
   accepts_nested_attributes_for :asset_attributes_groups,
                                 :allow_destroy => true
+
+  after_find :bind_getter_for_attributes
 
   def self.build_from_form form
     asset = Asset.new
@@ -17,5 +19,21 @@ class Asset < ActiveRecord::Base
       end
     end
     asset
+  end
+
+  def bind_getter_for_attributes
+    asset_attributes.each do |attribute|
+      method_name = attribute.name.snake_case
+      eval "def #{method_name}
+        '#{attribute.value}'
+      end"
+      @attributes[method_name.to_sym] = attribute.value
+      @attributes_cache[method_name] = attribute.value
+      instance_variable_set "@#{method_name}".to_sym, attribute.value
+    end
+  end
+
+  def asset_type
+    asset_type.try(:name)
   end
 end

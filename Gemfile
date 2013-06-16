@@ -21,6 +21,7 @@ end
 gem 'sqlite3'
 
 gem 'haml-rails'
+gem 'font-awesome-sass-rails'
 gem 'bootstrap-sass'
 
 # Use SCSS for stylesheets
