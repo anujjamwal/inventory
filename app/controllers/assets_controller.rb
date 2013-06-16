@@ -16,7 +16,7 @@ class AssetsController < ApplicationController
   end
 
   def index
-    @assets = @asset_type.assets
+    @assets = @asset_type.assets.reverse_order
   end
 
   private
