@@ -51,7 +51,20 @@ describe AssetsController do
 
   context :index do
     it 'should show all assets for the given asset type' do
-      get :index, asset_type_id: asset_type.id
+      Asset.should_receive(:all).and_call_original
+
+      get :index
+
+      response.should be_success
+    end
+  end
+
+  context :show do
+    it 'should show the asset' do
+      asset = Asset.new(asset_type: asset_type)
+      asset.save!
+
+      get :show, id: asset.id
 
       response.should be_success
     end

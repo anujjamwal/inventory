@@ -1,0 +1,18 @@
+- input_groups = @asset.asset_attributes_groups.load
+.tabbable
+    %ul.nav.nav-tabs
+        - (input_groups.pluck(:name)||[]).each do |name|
+            %li
+                %a{"data-toggle" => "tab", :href => "#tab_#{name.snake_case}"}
+                    = name
+
+    .tab-content
+        - input_groups.each do |group|
+            .tab-pane{:id => "tab_#{group.name.snake_case}"}
+                - group.asset_attributes.load.each do |asset_attribute|
+                    .control-group
+                        %label.control-label
+                            = asset_attribute.name
+                        .controls
+                            .value
+                                = asset_attribute.value

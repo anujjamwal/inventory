@@ -15,3 +15,6 @@
 # = require turbolinks
 # = require bootstrap
 # = require_tree .
+$(document).ready ->
+  $(".tabbable .nav-tabs li:first a").click()
+  return

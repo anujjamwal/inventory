@@ -21,6 +21,7 @@ class Asset < ActiveRecord::Base
     asset
   end
 
+  private
   def bind_getter_for_attributes
     asset_attributes.each do |attribute|
       method_name = attribute.name.snake_case
@@ -31,9 +32,5 @@ class Asset < ActiveRecord::Base
       @attributes_cache[method_name] = attribute.value
       instance_variable_set "@#{method_name}".to_sym, attribute.value
     end
-  end
-
-  def asset_type
-    asset_type.try(:name)
   end
 end

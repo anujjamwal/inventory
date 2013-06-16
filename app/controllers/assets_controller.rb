@@ -1,5 +1,5 @@
 class AssetsController < ApplicationController
-  before_filter :load_asset_type
+  before_filter :load_asset_type, only: [:new, :create]
 
   def new
     @form = @asset_type.forms.last
@@ -16,7 +16,12 @@ class AssetsController < ApplicationController
   end
 
   def index
-    @assets = @asset_type.assets.reverse_order
+    @assets = Asset.all.reverse_order
+  end
+
+  def show
+    @asset = Asset.find_by id: params[:id]
+    @asset_type = @asset.asset_type
   end
 
   private
