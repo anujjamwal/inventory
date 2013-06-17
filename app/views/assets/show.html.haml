@@ -22,6 +22,7 @@
                 = asset_attribute.name
               .controls
                 %input{ value: asset_attribute.value, readonly: :readonly, type: :text}
+
       .tab-pane{:id => 'tab_assignment'}
         - assignments = @asset.assignments.load
         - if assignments.size > 0
