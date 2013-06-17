@@ -1,18 +1,48 @@
+.breadcrumb
+  %a.btn{href: '#delete'} Remove
+
 - input_groups = @asset.asset_attributes_groups.load
 .tabbable
-    %ul.nav.nav-tabs
-        - (input_groups.pluck(:name)||[]).each do |name|
-            %li
-                %a{"data-toggle" => "tab", :href => "#tab_#{name.snake_case}"}
-                    = name
+  %ul.nav.nav-tabs
+    - (input_groups.pluck(:name)||[]).each do |name|
+      %li
+        %a{"data-toggle" => "tab", href: "#tab_#{name.snake_case}"}
+          = name
+    %li
+      %a{'data-toggle' => 'tab', href: '#tab_assignment'} Assignment
 
-    .tab-content
-        - input_groups.each do |group|
-            .tab-pane{:id => "tab_#{group.name.snake_case}"}
-                - group.asset_attributes.load.each do |asset_attribute|
-                    .control-group
-                        %label.control-label
-                            = asset_attribute.name
-                        .controls
-                            .value
-                                = asset_attribute.value
+
+  .tab-content
+    - input_groups.each do |group|
+      .tab-pane{id: "tab_#{group.name.snake_case}"}
+        .form-horizontal
+          - group.asset_attributes.load.each do |asset_attribute|
+            .control-group
+              %label.control-label
+                = asset_attribute.name
+              .controls
+                %input{ value: asset_attribute.value, readonly: :readonly, type: :text}
+      .tab-pane{:id => 'tab_assignment'}
+        - assignments = @asset.assignments.load
+        - if assignments.size > 0
+          %table.table
+            %thead
+              %tr
+                %th S. No
+                %th Status
+                %th Since Date
+                %th Duration
+            %tbody
+              - assignments.each_with_index do |assignment, i|
+                %tr{ id: assignment.id }
+                  %td.sno
+                    = i+1
+                  %td.emp_id
+                    = assignment.class == Unassigned ? 'Unassigned' : "Assigned to #{assignment.employee_id}"
+                  %td.assignment_date
+                    = assignment.assignment_date.strftime('%d %b, %Y')
+                  %td.duration
+                    - upto = i > 0 ? assignments[i-1].assignment_date : Time.now
+                    = "#{((upto - assignment.assignment_date)/86400).round} days"
+        - else
+          No Assignments

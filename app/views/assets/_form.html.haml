@@ -1,14 +1,15 @@
 %legend
 	= @asset_type.name
-= form_for [@asset_type, @asset], html: {class: "form-horizontal"} do |t|
-	- input_groups = @asset.asset_attributes_groups.load
-
+= form_for [@asset_type, @asset], html: {class: 'form-horizontal'} do |t|
+	- input_groups = @asset.asset_attributes_groups
 	.tabbable
 		%ul.nav.nav-tabs
-			- (input_groups.pluck(:name)||[]).each do |name|
+			- (input_groups.collect(&:name)||[]).each do |name|
 				%li
-					%a{"data-toggle" => "tab", :href => "#tab_#{name.snake_case}"} 
+					%a{'data-toggle' => 'tab', :href => "#tab_#{name.snake_case}"}
 						= name
+			%li
+				%a{'data-toggle' => 'tab', href: '#tab_assignment'} Assignment
 
 		.tab-content
 			- input_groups.each do |group|
@@ -16,7 +17,7 @@
 					.tab-pane{:id => "tab_#{group.name.snake_case}"}
 						= f.hidden_field :form_attributes_group_id
 						= f.hidden_field :name
-						- group.asset_attributes.load.each do |asset_attribute|
+						- group.asset_attributes.each_with_index do |asset_attribute, i|
 							= f.fields_for 'asset_attributes_attributes[]', asset_attribute do |g|
 								- form_attribute = asset_attribute.form_attribute
 								.control-group
@@ -25,9 +26,19 @@
 									- key = form_attribute.name.snake_case
 									= g.label :value, form_attribute.name, class: "control-label"
 									.controls
-										- params = {id:  "asset_#{key}", type: form_attribute.input_element_type}
+										- params = {id:  "asset_#{key}_#{i}", type: form_attribute.input_element_type}
 										- params[:required]= :required if form_attribute.required?
 										= g.text_field :value, params
+			.tab-pane{id: 'tab_assignment'}
+				= t.fields_for 'assignments', @asset.assignments.last do |f|
+					.control-group
+						= f.label :type, 'Assignment Type', class: "control-label"
+						.controls
+							= f.text_field :type, 'readonly' => 'readonly', id: 'asset_assignment_type'
+					.control-group
+						= f.label :assignment_date, 'Procurement Date', class: "control-label"
+						.controls
+							= f.text_field :assignment_date, type: :date, id: 'asset_assignment_assignment_date', value: Time.now.strftime('%d-%m-%Y')
 
 	.control-group
 		.controls
