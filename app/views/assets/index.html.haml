@@ -1,21 +1,13 @@
-.breadcrumb
-  %a.btn{href: '#show'} Show
-  %a.btn{href: '#clone'} Clone
-  %a.btn{href: '#delete'} Remove
-
-%table.table.table_striped
-  %thead
-    %th.multi-select
-      %input{type: 'checkbox'}
-    - @assets.first.asset_attributes.pluck(:name).each do |heading|
-      %th
-        = heading
-  %tbody
-    - @assets.each do |asset|
-      %tr.select{ id: asset.id }
-        %td
-          %input{type: 'checkbox'}
-        - asset.asset_attributes.pluck(:name).collect(&:snake_case).each do |attr|
-          %td{class: attr}
-            = asset.try(attr)
+#assets_list
+  %table.table.table-hover
+    %thead
+      - @assets.first.asset_attributes.pluck(:name).each do |heading|
+        %th
+          = heading
+    %tbody
+      - @assets.each do |asset|
+        %tr{ id: asset.id, 'data-url' => asset_path(asset) }
+          - asset.asset_attributes.pluck(:name).collect(&:snake_case).each do |attr|
+            %td{class: attr}
+              = asset.try(attr)
 

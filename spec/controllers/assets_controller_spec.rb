@@ -27,7 +27,7 @@ describe AssetsController do
 
       post :create, asset: asset_params, asset_type_id: asset_type.id
 
-      response.should redirect_to(asset_type_assets_path(asset_type_id: asset_type.id))
+      response.should redirect_to(assets_path)
     end
 
     it 'should not redirect if create a new asset fails' do

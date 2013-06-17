@@ -66,13 +66,14 @@
     
   }
 }.each do |k,v|
-  asset_type = AssetType.find_or_create_by_name(k)
+  asset_type = AssetType.where(name: k).first_or_create
   v.each do |k1,v1|
-    form = asset_type.forms.find_or_create_by_name(k1)
+    form = asset_type.forms.where(name: k1).first_or_create
     v1.each do |k2,v2|
-      attr_group = form.form_attributes_groups.find_or_create_by_name(k2)
+      attr_group = form.form_attributes_groups.where(name: k2).first_or_create
       v2.each do |v3|
-        attr_group.form_attributes.create v3
+        attrs = attr_group.form_attributes.where(name:  v3[:name]).first_or_create
+        attrs.update_attributes! v3
       end
     end
   end

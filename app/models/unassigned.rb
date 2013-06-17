@@ -1,0 +1,3 @@
+class Unassigned < Assignment
+
+end

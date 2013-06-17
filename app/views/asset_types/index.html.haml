@@ -1,13 +1,16 @@
-%table.table.table-bordered
-  %caption ...
+%table#asset_types-table.table.table-bordered
+  %caption Asset Type List
   %thead
-    %tr
+    %tr.heading
       %th S.No
       %th Name
+      %th Action
   %tbody
     - @asset_types.each_with_index do |asset_type, index|
-      %tr
-        %td 
+      %tr{ id: asset_type.id }
+        %td.sno
           = index
-        %td 
+        %td.name
           = asset_type.name
+        %td.action
+          = link_to 'Add Asset', new_asset_type_asset_path(asset_type), class: 'btn'
