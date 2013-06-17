@@ -2,6 +2,7 @@ class Asset < ActiveRecord::Base
   belongs_to :asset_type
   has_many :asset_attributes_groups
   has_many :asset_attributes, through: :asset_attributes_groups
+  has_many :asset_assignments
 
   default_scope :include => [:asset_attributes]
 
