@@ -14,7 +14,7 @@ describe AssetsController do
   context :create do
     it 'should create a new asset' do
       Asset.any_instance.should_receive(:save).and_return(true)
-      asset_params = {"name" => "", "serial" => "nbuibcibviberu", "procurement_date" => "2013-06-11",
+      asset_params = {"asset_id" => "sss", "serial" => "nbuibcibviberu", "procurement_date" => "2013-06-11", warranty_id: 1, company_id: 2, office_id: 3,
                       "asset_attributes_groups_attributes" => [{"form_attributes_group_id" => "2", "name" => "General",
                                                      "asset_attributes_attributes" => [{"name" => "Company", "form_attribute_id" => "1", "value" => "company"},
                                                                             {"name" => "Model", "form_attribute_id" => "2", "value" => "aaaaa"},
@@ -61,7 +61,7 @@ describe AssetsController do
 
   context :show do
     it 'should show the asset' do
-      asset = Asset.new(asset_type: asset_type)
+      asset = FactoryGirl.create( :asset, asset_type: asset_type)
       asset.save!
 
       get :show, id: asset.id

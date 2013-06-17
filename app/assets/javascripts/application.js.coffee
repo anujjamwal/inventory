@@ -14,7 +14,15 @@
 # = require jquery_ujs
 # = require turbolinks
 # = require bootstrap
-# = require_tree .
+# = require assets
+# = require bootstrap-datepicker
+
 $(document).ready ->
   $(".tabbable .nav-tabs li:first a").click()
+
+  # No HTML5 Date support
+  $.each $("input[type=date]"), ->
+    if(this.type == "text")
+      $(this).datepicker(format: 'dd/mm/yyyy')
+
   return

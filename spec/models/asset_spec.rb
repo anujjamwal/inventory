@@ -5,4 +5,8 @@ describe Asset do
   it {should have_many :asset_attributes_groups}
   it {should have_many :assignments}
   it {should have_many(:asset_attributes).through(:asset_attributes_groups)}
+
+  [:asset_id, :serial, :warranty_id, :company_id, :warranty_start, :procurement_date].each do |field|
+    it { should validate_presence_of field }
+  end
 end

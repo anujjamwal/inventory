@@ -82,3 +82,12 @@ end
 ['Apple', 'Dell'].each do |company|
   Company.where(name: company).first_or_create
 end
+
+[{name: 'Apple 1 year protection', duration_in_days: 365, company_id: Company.first.id}].each do |warranty|
+  warrant = Warranty.where(name: warranty[:name]).first_or_create
+  warrant.update_attributes! warranty
+end
+
+['Gurgaon'].each do |office|
+  Office.where(name: office).first_or_create
+end

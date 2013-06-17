@@ -4,12 +4,16 @@ class Asset < ActiveRecord::Base
   has_many :asset_attributes, through: :asset_attributes_groups
   has_many :assignments
 
+  [:asset_id, :serial, :warranty_id, :company_id, :warranty_start, :procurement_date].each do |field|
+    validates field, presence: true
+  end
+
   default_scope :include => [:asset_attributes]
 
-  accepts_nested_attributes_for :assignments, allow_destroy: true
   accepts_nested_attributes_for :asset_attributes_groups, allow_destroy: true
 
   after_find :bind_getter_for_attributes
+  after_create :init_assignment
 
   def self.build_from_form form
     asset = Asset.new
@@ -19,7 +23,6 @@ class Asset < ActiveRecord::Base
         g.asset_attributes.build name: attr.name, form_attribute: attr
       end
     end
-    asset.assignments.build type: 'Unassigned', assignment_date: Time.now
     asset
   end
 
@@ -34,5 +37,9 @@ class Asset < ActiveRecord::Base
       @attributes_cache[method_name] = attribute.value
       instance_variable_set "@#{method_name}".to_sym, attribute.value
     end
+  end
+
+  def init_assignment
+    self.assignments.new(type: Unassigned.name, assignment_date: self.procurement_date).save!
   end
 end

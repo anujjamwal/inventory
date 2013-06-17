@@ -4,14 +4,40 @@
 	- input_groups = @asset.asset_attributes_groups
 	.tabbable
 		%ul.nav.nav-tabs
+			%li.active
+				%a{'data-toggle' => 'tab', href: '#tab_assignment'} General
 			- (input_groups.collect(&:name)||[]).each do |name|
 				%li
 					%a{'data-toggle' => 'tab', :href => "#tab_#{name.snake_case}"}
 						= name
-			%li
-				%a{'data-toggle' => 'tab', href: '#tab_assignment'} Assignment
 
 		.tab-content
+			.tab-pane.active{id: 'tab_assignment'}
+				.control-group
+					= t.label :asset_id, 'Asset ID'
+					.controls
+						= t.text_field :asset_id
+				.control-group
+					= t.label :serial, 'Serial'
+					.controls
+						= t.text_field :serial
+				.control-group
+					= t.label :company_id, 'Company'
+					.controls
+						= t.select :company_id, options_for_select([['Select', nil]] + Company.all.map{|c| [c.name, c.id]})
+				.control-group
+					= t.label :warranty_id, 'Warranty'
+					.controls
+						= t.select :warranty_id, options_for_select([['Select', nil]] + Warranty.all.map{|c| [c.name, c.id]})
+				.control-group
+					= t.label :warranty_start, 'Warranty Start Date'
+					.controls
+						= t.text_field :warranty_start, type: :date
+				.control-group
+					= t.label :procurement_date, 'Procurement Date'
+					.controls
+						= t.text_field :procurement_date, type: :date
+
 			- input_groups.each do |group|
 				= t.fields_for 'asset_attributes_groups_attributes[]', group do |f|
 					.tab-pane{:id => "tab_#{group.name.snake_case}"}
@@ -29,16 +55,6 @@
 										- params = {id:  "asset_#{key}_#{i}", type: form_attribute.input_element_type}
 										- params[:required]= :required if form_attribute.required?
 										= g.text_field :value, params
-			.tab-pane{id: 'tab_assignment'}
-				= t.fields_for 'assignments', @asset.assignments.last do |f|
-					.control-group
-						= f.label :type, 'Assignment Type', class: "control-label"
-						.controls
-							= f.text_field :type, 'readonly' => 'readonly', id: 'asset_assignment_type'
-					.control-group
-						= f.label :assignment_date, 'Procurement Date', class: "control-label"
-						.controls
-							= f.text_field :assignment_date, type: :date, id: 'asset_assignment_assignment_date', value: Time.now.strftime('%d-%m-%Y')
 
 	.control-group
 		.controls

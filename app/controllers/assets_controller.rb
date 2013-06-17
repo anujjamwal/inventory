@@ -26,10 +26,10 @@ class AssetsController < ApplicationController
 
   private
   def asset_params
+    params.require(:asset).permit(:serial, :asset_id, :company_id, :warranty_id, :warranty_start, :procurement_date)
     params[:asset].permit(asset_attributes_groups_attributes: [ :name, :serial, :procurement_date, :form_attributes_group_id, :name,
                                                                 asset_attributes_attributes: [:name, :value, :form_attribute_id]
-                                                              ],
-                          assignments_attributes: [:type, :assignment_date]
+                                                              ]
     )
   end
 
