@@ -3,5 +3,7 @@ Inventory::Application.routes.draw do
     resources :assets, only: [:create, :new]
   end
 
-  resources :assets, only: [:index, :show]
+  resources :assets, only: [:index, :show] do
+    resources :assignments, only: [:create]
+  end
 end

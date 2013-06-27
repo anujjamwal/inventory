@@ -11,6 +11,8 @@ class Asset < ActiveRecord::Base
   default_scope :include => [:asset_attributes]
 
   accepts_nested_attributes_for :asset_attributes_groups, allow_destroy: true
+  belongs_to :company
+  belongs_to :warranty
 
   after_find :bind_getter_for_attributes
   after_create :init_assignment

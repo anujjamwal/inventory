@@ -4,6 +4,8 @@
 - input_groups = @asset.asset_attributes_groups.load
 .tabbable
   %ul.nav.nav-tabs
+    %li.active
+      %a{'data-toggle' => 'tab', href: '#tab_general_data'} General
     - (input_groups.pluck(:name)||[]).each do |name|
       %li
         %a{"data-toggle" => "tab", href: "#tab_#{name.snake_case}"}
@@ -13,6 +15,37 @@
 
 
   .tab-content
+    .tab-pane.active{:id => 'tab_general_data'}
+      .control-group
+        %label.control-label
+          Asset ID
+        .controls
+          %input{ value: @asset.asset_id, readonly: :readonly, type: :text}
+      .control-group
+        %label.control-label
+          Serial Number
+        .controls
+          %input{ value: @asset.serial, readonly: :readonly, type: :text}
+      .control-group
+        %label.control-label
+          Company
+        .controls
+          %input{ value: @asset.company.name, readonly: :readonly, type: :text}
+      .control-group
+        %label.control-label
+          Warranty
+        .controls
+          %input{ value: @asset.warranty.name, readonly: :readonly, type: :text}
+      .control-group
+        %label.control-label
+          Warranty Start Date
+        .controls
+          %input{ value: @asset.warranty_start, readonly: :readonly, type: :text}
+      .control-group
+        %label.control-label
+          Procurement Date
+        .controls
+          %input{ value: @asset.procurement_date, readonly: :readonly, type: :text}
     - input_groups.each do |group|
       .tab-pane{id: "tab_#{group.name.snake_case}"}
         .form-horizontal
@@ -24,7 +57,10 @@
                 %input{ value: asset_attribute.value, readonly: :readonly, type: :text}
 
       .tab-pane{:id => 'tab_assignment'}
-        - assignments = @asset.assignments.load
+        - assignments = @asset.assignments.order(assignment_date: :desc)
+
+        = render :partial => 'assignment_form'
+
         - if assignments.size > 0
           %table.table
             %thead
@@ -39,11 +75,11 @@
                   %td.sno
                     = i+1
                   %td.emp_id
-                    = assignment.class == Unassigned ? 'Unassigned' : "Assigned to #{assignment.employee_id}"
+                    = assignment.class == Unassigned ? 'Unassigned' : "Assigned to #{assignment.employee.try(:emp_id)}"
                   %td.assignment_date
-                    = assignment.assignment_date.strftime('%d %b, %Y')
+                    = assignment.assignment_date.strftime('%d %b, %Y') rescue ''
                   %td.duration
                     - upto = i > 0 ? assignments[i-1].assignment_date : Time.now
-                    = "#{((upto - assignment.assignment_date)/86400).round} days"
+                    = "#{((upto - assignment.assignment_date)/86400).round} days" rescue ''
         - else
           No Assignments
