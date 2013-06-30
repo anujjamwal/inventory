@@ -3,12 +3,14 @@
     %caption
       = t('asset.list.caption')
     %thead
-      - ['Asset ID', 'Serial No.', 'Company', 'Procurement Date', 'Warranty', 'Warranty Start Date', 'Action'].each do |heading|
+      - ['Type', 'Asset ID', 'Serial No.', 'Company', 'Procurement Date', 'Warranty', 'Warranty Start Date', 'Action'].each do |heading|
         %th
           = heading
     %tbody
       - @assets.each do |asset|
         %tr{ id: asset.id, 'data-url' => asset_path(asset) }
+          %td.type
+            = asset.asset_type.name
           %td.asset_id
             = asset.asset_id
           %td.serial

@@ -20,3 +20,28 @@
       cursor: pointer;
   }
 }
+
+.widget {
+  display: inline-block;
+  border: 1px solid #bbb;
+  border-radius: 5px;
+
+  &.medium {
+    max-width: 400px;
+  }
+
+  .head {
+    padding: 2px;
+    padding-left: 10px;
+    background-color: #ddd;
+  }
+
+  .body {
+    padding: 5px;
+  }
+}
+
+.td {
+  display: inline-block;
+  width: 150px;
+}
