@@ -5,7 +5,7 @@ Inventory::Application.routes.draw do
 
   resources :assets, only: [:index, :show] do
     member do
-      get :clone
+      get :clone, as: :clone_asset
     end
     resources :assignments, only: [:create]
   end

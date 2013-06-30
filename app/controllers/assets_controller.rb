@@ -16,6 +16,7 @@ class AssetsController < ApplicationController
 
   def create
     @asset = @asset_type.assets.new asset_params
+    @form = @asset.form
     if @asset.save
       redirect_to assets_path
     else

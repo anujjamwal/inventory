@@ -3,7 +3,7 @@
     %caption
       = t('asset.list.caption')
     %thead
-      - ['Asset ID', 'Serial No.', 'Company', 'Procurement Date', 'Warranty', 'Warranty Start Date'].each do |heading|
+      - ['Asset ID', 'Serial No.', 'Company', 'Procurement Date', 'Warranty', 'Warranty Start Date', 'Action'].each do |heading|
         %th
           = heading
     %tbody
@@ -21,4 +21,5 @@
             = asset.warranty.name
           %td.warranty_start
             = asset.warranty_start.strftime('%d-%b-%Y')
-
+          %td.action
+            = link_to 'Clone', clone_asset_path(id: asset.id), class: 'btn'
