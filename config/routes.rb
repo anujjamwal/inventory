@@ -11,4 +11,6 @@ Inventory::Application.routes.draw do
   end
 
   get 'dashboard' => 'users#dashboard'
+
+  root to: 'application#root'
 end
