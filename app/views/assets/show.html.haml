@@ -1,4 +1,5 @@
 .breadcrumb
+  = link_to 'Clone', clone_asset_path(id: @asset.id), class: 'btn'
   %a.btn{href: '#delete'} Remove
 
 - input_groups = @asset.asset_attributes_groups.load
