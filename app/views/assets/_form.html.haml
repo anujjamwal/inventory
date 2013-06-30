@@ -1,6 +1,7 @@
 %legend
 	= @asset_type.name
 = form_for [@asset_type, @asset], html: {class: 'form-horizontal'} do |t|
+	= t.hidden_field :form_id, value: @form.try(:id)
 	- input_groups = @asset.asset_attributes_groups
 	.tabbable
 		%ul.nav.nav-tabs
@@ -24,11 +25,11 @@
 				.control-group
 					= t.label :company_id, 'Company'
 					.controls
-						= t.select :company_id, options_for_select([['Select', nil]] + Company.all.map{|c| [c.name, c.id]})
+						= t.select :company_id, options_for_select([['Select', nil]] + Company.all.map{|c| [c.name, c.id]}, @asset.company_id)
 				.control-group
 					= t.label :warranty_id, 'Warranty'
 					.controls
-						= t.select :warranty_id, options_for_select([['Select', nil]] + Warranty.all.map{|c| [c.name, c.id]})
+						= t.select :warranty_id, options_for_select([['Select', nil]] + Warranty.all.map{|c| [c.name, c.id]},  @asset.warranty_id)
 				.control-group
 					= t.label :warranty_start, 'Warranty Start Date'
 					.controls

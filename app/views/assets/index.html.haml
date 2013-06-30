@@ -1,13 +1,24 @@
 #assets_list
   %table.table.table-hover
+    %caption
+      = t('asset.list.caption')
     %thead
-      - @assets.first.asset_attributes.pluck(:name).each do |heading|
+      - ['Asset ID', 'Serial No.', 'Company', 'Procurement Date', 'Warranty', 'Warranty Start Date'].each do |heading|
         %th
           = heading
     %tbody
       - @assets.each do |asset|
         %tr{ id: asset.id, 'data-url' => asset_path(asset) }
-          - asset.asset_attributes.pluck(:name).collect(&:snake_case).each do |attr|
-            %td{class: attr}
-              = asset.try(attr)
+          %td.asset_id
+            = asset.asset_id
+          %td.serial
+            = asset.serial
+          %td.company
+            = asset.company.name
+          %td.procurement_date
+            = asset.procurement_date.strftime('%d-%b-%Y')
+          %td.warranty
+            = asset.warranty.name
+          %td.warranty_start
+            = asset.warranty_start.strftime('%d-%b-%Y')
 

@@ -62,11 +62,23 @@ describe AssetsController do
   context :show do
     it 'should show the asset' do
       asset = FactoryGirl.create( :asset, asset_type: asset_type)
-      asset.save!
 
       get :show, id: asset.id
 
       response.should be_success
+    end
+  end
+
+  context :clone do
+    it 'should show the clone asset page' do
+      form = Form.create! name: :name
+      asset = FactoryGirl.create( :asset, asset_type: asset_type, form: form)
+      Asset.count.should == 1
+
+      get :clone, id: asset.id
+
+      response.should be_success
+      Asset.count.should == 1
     end
   end
 end

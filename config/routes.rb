@@ -4,6 +4,11 @@ Inventory::Application.routes.draw do
   end
 
   resources :assets, only: [:index, :show] do
+    member do
+      get :clone
+    end
     resources :assignments, only: [:create]
   end
+
+  get 'dashboard' => 'users#dashboard'
 end

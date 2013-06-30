@@ -21,3 +21,6 @@
 
 en:
   hello: "Hello world"
+  asset:
+    list:
+      caption: "Asset List"

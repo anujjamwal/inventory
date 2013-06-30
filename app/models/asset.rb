@@ -13,6 +13,7 @@ class Asset < ActiveRecord::Base
   accepts_nested_attributes_for :asset_attributes_groups, allow_destroy: true
   belongs_to :company
   belongs_to :warranty
+  belongs_to :form
 
   after_find :bind_getter_for_attributes
   after_create :init_assignment
@@ -25,6 +26,18 @@ class Asset < ActiveRecord::Base
         g.asset_attributes.build name: attr.name, form_attribute: attr
       end
     end
+    asset
+  end
+
+  def clone
+    asset = Asset.new
+    self.form.form_attributes_groups.each do |group|
+      g = asset.asset_attributes_groups.build name: group.name, form_attributes_group: group
+      group.form_attributes.each do |attr|
+        g.asset_attributes.build name: attr.name, form_attribute: attr, value: self.send(attr.name.snake_case.to_sym)
+      end
+    end
+    %w{warranty_id company_id warranty_start procurement_date}.each {|attr| asset.send("#{attr}=", self.send(attr)) }
     asset
   end
 
