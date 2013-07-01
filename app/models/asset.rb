@@ -25,7 +25,7 @@ class Asset < ActiveRecord::Base
       group.form_attributes.each do |attr|
         g.asset_attributes.build name: attr.name, form_attribute: attr
       end
-    end
+    end if form.present?
     asset
   end
 
