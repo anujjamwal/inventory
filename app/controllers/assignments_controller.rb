@@ -10,6 +10,6 @@ class AssignmentsController < ApplicationController
 
   private
   def ensure_employee
-    @employee = Employee.where(emp_id: params[:assignment][:employee_id]).first_or_create
+    @employee = Employee.find_by_employee_id params[:assignment][:employee_id]
   end
 end
