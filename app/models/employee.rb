@@ -15,7 +15,7 @@ class Employee < ActiveRecord::Base
   def self.find_or_create_for_identifier(attr, value)
     employee = Employee.find_by attr => value
     if employee.nil?
-      emp = ThoughtWorks::User.find id
+      emp = User.find value
       employee = emp.nil? ? nil : Employee.create( name: emp.name, emp_id: emp.id, email: emp.email, ad_id: emp.ad_id)
     end
     employee
