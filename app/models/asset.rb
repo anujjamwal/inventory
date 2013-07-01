@@ -41,6 +41,22 @@ class Asset < ActiveRecord::Base
     asset
   end
 
+  def current_assignment
+    @current_assignment ||= self.assignments.find_by_sql( <<-SQL
+      Select b.*
+      from (Select id, max(assignment_date)
+            from ASSIGNMENTS
+            where asset_id = #{self.id} ) a, assignments b
+      where a.id = b.id
+    SQL
+    ).first
+  end
+
+  def warranty_left
+    duration = warranty.duration_in_days - ((warranty_start - Time.now) / 86400).round
+    duration > 0 ? duration : 0
+  end
+
   private
   def bind_getter_for_attributes
     asset_attributes.each do |attribute|

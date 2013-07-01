@@ -3,7 +3,7 @@
     %caption
       = t('asset.list.caption')
     %thead
-      - ['Type', 'Asset ID', 'Serial No.', 'Company', 'Procurement Date', 'Warranty', 'Warranty Start Date', 'Action'].each do |heading|
+      - ['Type', 'Asset ID', 'Serial No.', 'Company', 'Warranty', 'Warranty Left (days)', 'Assignment', 'Action'].each do |heading|
         %th
           = heading
     %tbody
@@ -17,11 +17,11 @@
             = asset.serial
           %td.company
             = asset.company.name
-          %td.procurement_date
-            = asset.procurement_date.strftime('%d-%b-%Y')
           %td.warranty
             = asset.warranty.name
-          %td.warranty_start
-            = asset.warranty_start.strftime('%d-%b-%Y')
+          %td.warranty_left
+            = asset.warranty_left
+          %td.assignment
+            = asset.current_assignment.description
           %td.action
             = link_to 'Clone', clone_asset_path(id: asset.id), class: 'btn'
