@@ -3,6 +3,9 @@ require 'spec_helper'
 describe Asset do
   it {should belong_to :asset_type}
   it {should belong_to :form}
+  it {should belong_to :warranty}
+  it {should belong_to :company}
+  it {should belong_to :model}
   it {should have_many :asset_attributes_groups}
   it {should have_many :assignments}
   it {should have_many(:asset_attributes).through(:asset_attributes_groups)}

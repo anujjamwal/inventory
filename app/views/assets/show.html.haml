@@ -34,6 +34,11 @@
           %input{ value: @asset.company.name, readonly: :readonly, type: :text}
       .control-group
         %label.control-label
+          Model
+        .controls
+          %input{ value: @asset.model.try(:name), readonly: :readonly, type: :text}
+      .control-group
+        %label.control-label
           Warranty
         .controls
           %input{ value: @asset.warranty.name, readonly: :readonly, type: :text}

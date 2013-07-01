@@ -3,7 +3,7 @@
     %caption
       = t('asset.list.caption')
     %thead
-      - ['Type', 'Asset ID', 'Serial No.', 'Company', 'Warranty', 'Warranty Left (days)', 'Assignment', 'Action'].each do |heading|
+      - ['Type', 'Asset ID', 'Serial No.', 'Company', 'Model', 'Warranty', 'Warranty Left (days)', 'Assignment', 'Action'].each do |heading|
         %th
           = heading
     %tbody
@@ -17,6 +17,8 @@
             = asset.serial
           %td.company
             = asset.company.name
+          %td.model
+            = asset.model.name rescue '-'
           %td.warranty
             = asset.warranty.name
           %td.warranty_left

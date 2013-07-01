@@ -13,6 +13,7 @@ class Asset < ActiveRecord::Base
   accepts_nested_attributes_for :asset_attributes_groups, allow_destroy: true
   belongs_to :company
   belongs_to :warranty
+  belongs_to :model
   belongs_to :form
 
   after_find :bind_getter_for_attributes
@@ -36,7 +37,7 @@ class Asset < ActiveRecord::Base
       group.form_attributes.each do |attr|
         g.asset_attributes.build name: attr.name, form_attribute: attr, value: self.send(attr.name.snake_case.to_sym)
       end
-    end
+    end  if self.form.present?
     %w{warranty_id company_id warranty_start procurement_date}.each {|attr| asset.send("#{attr}=", self.send(attr)) }
     asset
   end

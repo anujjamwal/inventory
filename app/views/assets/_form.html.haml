@@ -27,6 +27,10 @@
 					.controls
 						= t.select :company_id, options_for_select([['Select', nil]] + Company.all.map{|c| [c.name, c.id]}, @asset.company_id)
 				.control-group
+					= t.label :model_id, 'Model'
+					.controls
+						= t.select :model_id, options_for_select([['Select', nil]] + Model.where(asset_type_id: @asset_type).map{|c| [c.name, c.id]}, @asset.model_id)
+				.control-group
 					= t.label :warranty_id, 'Warranty'
 					.controls
 						= t.select :warranty_id, options_for_select([['Select', nil]] + Warranty.all.map{|c| [c.name, c.id]},  @asset.warranty_id)

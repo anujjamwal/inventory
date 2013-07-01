@@ -35,8 +35,14 @@
   end
 end
 
-['Apple', 'Dell'].each do |company|
-  Company.where(name: company).first_or_create
+laptop = AssetType.find_by(name: 'Laptop')
+{'Apple' => [{name: 'MacBook Pro 15', asset_type_id: laptop.id}, {name: 'MacBook Air 13', asset_type_id: laptop.id},
+             {name: 'MacBook Pro 15 Retina', asset_type_id: laptop.id}],
+ 'Dell' => [{name: 'Latitude 15', asset_type_id: laptop.id}, {name: 'Studio XPS 13', asset_type_id: laptop.id}]}.each do |company, models|
+  company = Company.where(name: company).first_or_create
+  models.each do |model|
+    company.models.where(model).first_or_create
+  end
 end
 
 [{name: 'Apple 1 year protection', duration_in_days: 365, company_id: Company.first.id}].each do |warranty|

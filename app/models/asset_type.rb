@@ -3,4 +3,5 @@ class AssetType < ActiveRecord::Base
   
   has_many :forms, foreign_key: :asset_type_id
   has_many :assets
+  has_many :models
 end
