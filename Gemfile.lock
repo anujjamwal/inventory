@@ -26,7 +26,7 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     arel (4.0.0)
-    atomic (1.1.8)
+    atomic (1.1.10)
     bootstrap-sass (2.3.1.0)
       sass (~> 3.2)
     builder (3.1.4)
@@ -88,8 +88,8 @@ GEM
       treetop (~> 1.4.8)
     method_source (0.8.1)
     mime-types (1.23)
-    minitest (4.7.4)
-    multi_json (1.7.2)
+    minitest (4.7.5)
+    multi_json (1.7.7)
     nokogiri (1.5.9)
     polyglot (0.3.3)
     pry (0.9.12.1)
@@ -126,6 +126,11 @@ GEM
       rspec-core (~> 2.13.0)
       rspec-expectations (~> 2.13.0)
       rspec-mocks (~> 2.13.0)
+    rubycas-client (2.2.1)
+      activesupport
+    rubycas-client-rails (0.1.0)
+      rails (>= 3.0.0)
+      rubycas-client (>= 2.2.0)
     sass (3.2.8)
     sass-rails (4.0.0.rc1)
       railties (>= 4.0.0.beta, < 5.0)
@@ -182,6 +187,8 @@ DEPENDENCIES
   pry
   rails (= 4.0.0.rc1)
   rspec-rails
+  rubycas-client (= 2.2.1)
+  rubycas-client-rails
   sass-rails (~> 4.0.0.rc1)
   sdoc
   shoulda-matchers

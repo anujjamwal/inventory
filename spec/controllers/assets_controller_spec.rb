@@ -3,6 +3,10 @@ require 'spec_helper'
 describe AssetsController do
   let(:asset_type) {FactoryGirl.create :asset_type}
 
+  before do
+    RubyCAS::Filter.fake('homer')
+  end
+
   it 'should present the user with new asset form' do
     asset_type.forms.create! :name => "Blueprint"
 

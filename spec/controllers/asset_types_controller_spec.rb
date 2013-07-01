@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe AssetTypesController do
+  before do
+    RubyCAS::Filter.fake('homer')
+  end
+
   it "should serve the new asset type page" do
     get :new
     

@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe AssignmentsController do
   let(:asset) {FactoryGirl.create(:asset)}
+  before do
+    RubyCAS::Filter.fake('homer')
+  end
+
   context 'create' do
     it 'should create a new assignment for an asset' do
       post :create, asset_id: asset.id,  assignment: { employee_id: '10232', assignment_date: Time.now, type: 'EmployeeAssignment' }

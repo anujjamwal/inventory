@@ -20,6 +20,9 @@ end
 
 gem 'sqlite3'
 
+gem 'rubycas-client', '2.2.1'
+gem 'rubycas-client-rails'
+
 gem 'haml-rails'
 gem 'font-awesome-sass-rails'
 gem 'bootstrap-sass'
