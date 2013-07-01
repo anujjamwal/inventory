@@ -11,6 +11,7 @@ Inventory::Application.routes.draw do
   end
 
   get 'dashboard' => 'users#dashboard'
+  get 'logout' => 'application#logout'
 
   root to: 'application#root'
 end

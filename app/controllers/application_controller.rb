@@ -5,7 +5,10 @@ class ApplicationController < ActionController::Base
   before_filter RubyCAS::Filter
 
   def root
-    p session
     redirect_to dashboard_path
+  end
+
+  def logout
+    RubyCAS::Filter.logout self
   end
 end
