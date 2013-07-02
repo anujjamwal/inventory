@@ -76,16 +76,18 @@
                 %th Since Date
                 %th Duration
             %tbody
-              - assignments.each_with_index do |assignment, i|
+              - i = 0
+              - ([Assignment.new( assignment_date: Time.now)] + assignments).each_cons(2) do |ass_group|
+                - next if ass_group.size < 1
+                - assignment = ass_group[1]
                 %tr{ id: assignment.id }
                   %td.sno
-                    = i+1
+                    = i+=1
                   %td.emp_id
-                    = assignment.class == Unassigned ? 'Unassigned' : "Assigned to #{assignment.employee.try(:emp_id)}"
+                    = assignment.description
                   %td.assignment_date
                     = assignment.assignment_date.strftime('%d %b, %Y') rescue ''
                   %td.duration
-                    - upto = i > 0 ? assignments[i-1].assignment_date : Time.now
-                    = "#{((upto - assignment.assignment_date)/86400).round} days" rescue ''
+                    = "#{((ass_group[0].assignment_date - assignment.assignment_date)/86400).round} days" rescue ''
         - else
           No Assignments
