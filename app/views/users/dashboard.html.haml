@@ -8,6 +8,7 @@
         = render :partial => 'assets/asset_table'
 
   #asset_details.hero-unit.tiles-container
+    %label.btn-link.view-more-link{for: 'view-more'} View More
     %ul.assets-tiles.thumbnails
       - AssetType.all.each do |asset_type|
         - asset_unassigned_count = Asset.unassigned_count(asset_type.id)
