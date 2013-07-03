@@ -18,8 +18,12 @@
             - else
               %label.text-center.alert-error.asset-label Not Available
             %img.asset-image{src: asset_type.image}
-            .asset-stats
-              = asset_unassigned_count
+            - if asset_unassigned_count > 0
+              .asset-stats.alert-success
+                = asset_unassigned_count
+            - else
+              .asset-stats.alert-error
+                = 0
             .asset-name
               = asset_type.name
             %button.btn.btn-block View All
