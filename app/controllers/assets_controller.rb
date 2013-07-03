@@ -25,7 +25,19 @@ class AssetsController < ApplicationController
   end
 
   def index
-    @assets = Asset.all.reverse_order
+    @labels = []
+    @labels << (AssetType.find_by(id: params[:type]).name rescue 'Unknown Asset Type') if params[:type]
+
+    if params[:assignment].downcase == 'unassigned'
+      @labels << 'Unassigned'
+      @assets = Asset.unassigned(params[:type]||0)
+    else
+      if params[:type].nil?
+        @assets = Asset.all.reverse_order
+      else
+        @assets = Asset.where(asset_type_id: params[:type]).reverse_order
+      end
+    end
   end
 
   def show

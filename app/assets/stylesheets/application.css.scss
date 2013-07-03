@@ -14,10 +14,12 @@
 @import "bootstrap";
 @import 'font-awesome';
 
-.table-hover {
-  tr:not(.no-data) {
-      cursor: pointer;
-  }
+.container {
+  width: 1100px;
+}
+
+[data-url] {
+  cursor: pointer;
 }
 
 body {

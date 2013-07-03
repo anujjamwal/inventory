@@ -26,3 +26,6 @@ $(document).ready ->
       $(this).datepicker(format: 'dd/mm/yyyy')
 
   return
+
+$(document).on 'click', '[data-url]', ->
+  window.location = $(this).data('url')

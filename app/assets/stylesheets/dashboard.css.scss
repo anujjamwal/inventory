@@ -10,6 +10,8 @@
 
   .tiles-container {
     position: relative;
+    padding: 20px 20px;
+
 
     .view-more-link {
       position: absolute;
@@ -33,6 +35,19 @@
         text-decoration: none;
         overflow: hidden;
 
+        .asset-label {
+          height: 20px;
+          cursor: default;
+
+          &[data-url] {
+            cursor: pointer;
+            &:hover {
+              border: 1px solid #10971a;
+              height: 18px;
+            }
+          }
+        }
+
         .asset-image {
           height: 240px;
           margin-bottom: 5px;
@@ -47,6 +62,16 @@
           height: 24px;
           border-radius: 15px;
           padding-top: 4px;
+          cursor: default;
+
+          &[data-url] {
+            cursor: pointer;
+            &:hover {
+              border: 1px solid #10971a;
+              width: 26px;
+              height: 22px;
+            }
+          }
         }
 
         .asset-name {

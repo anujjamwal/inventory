@@ -104,7 +104,7 @@ class Asset < ActiveRecord::Base
 
     def unassigned asset_type_id=nil
       if asset_type_id.present?
-        Asset.find_by_sql unassigned_assets_for_type_query(asset_type_id)
+        Asset.find_by_sql [unassigned_assets_for_type_query, asset_type_id]
       else
         Asset.find_by_sql unassigned_assets_query
       end
@@ -112,7 +112,7 @@ class Asset < ActiveRecord::Base
 
     def unassigned_count asset_type_id=nil
       if asset_type_id.present?
-        ActiveRecord::Base.connection.execute("SELECT COUNT(id) FROM (#{unassigned_assets_for_type_query(asset_type_id)})").first[0]
+        ActiveRecord::Base.connection.execute(ActiveRecord::Base.send(:sanitize_sql_array,["SELECT COUNT(id) FROM (#{unassigned_assets_for_type_query})", asset_type_id])).first[0]
       else
         ActiveRecord::Base.connection.execute("SELECT COUNT(id) FROM (#{unassigned_assets_query})").first[0]
       end
@@ -136,7 +136,7 @@ class Asset < ActiveRecord::Base
       SQL
     end
 
-    def unassigned_assets_for_type_query asset_type_id
+    def unassigned_assets_for_type_query
       <<-SQL
         SELECT a.*
         FROM ASSETS a, (
@@ -152,7 +152,7 @@ class Asset < ActiveRecord::Base
         WHERE
           a.id = b.asset_id
           AND
-          a.asset_type_id = #{asset_type_id}
+          a.asset_type_id = ?
       SQL
     end
   end

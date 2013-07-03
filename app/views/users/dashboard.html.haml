@@ -15,16 +15,16 @@
         %li.tile.text-center
           %a.thumbnail
             - if asset_unassigned_count > 0
-              %label.text-center.alert-success.asset-label Available
+              %label.text-center.alert-success.asset-label{'data-url' => assets_path(type: asset_type.id, assignment: :unassigned)} Available
             - else
               %label.text-center.alert-error.asset-label Not Available
             %img.asset-image{src: asset_type.image}
             - if asset_unassigned_count > 0
-              .asset-stats.alert-success
+              .asset-stats.alert-success{'data-url' => assets_path(type: asset_type.id, assignment: :unassigned)}
                 = asset_unassigned_count
             - else
               .asset-stats.alert-error
                 = 0
             .asset-name
               = asset_type.name
-            %button.btn.btn-block View All
+            %button.btn.btn-block{'data-url' => assets_path(type: asset_type.id)} View All
