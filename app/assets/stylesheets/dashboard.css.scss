@@ -59,11 +59,13 @@
           position: absolute;
           top: 40px;
           right: 15px;
-          width: 28px;
+          min-width: 28px;
           height: 24px;
           border-radius: 15px;
           padding-top: 4px;
           cursor: default;
+          padding: 0 4px;
+          padding-top: 4px;
 
           &[data-url] {
             cursor: pointer;
