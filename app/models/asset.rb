@@ -54,7 +54,7 @@ class Asset < ActiveRecord::Base
   end
 
   def warranty_left
-    duration = warranty.duration_in_days - ((warranty_start - Time.now) / 86400).round
+    duration = warranty.duration_in_days - ((Time.now - warranty_start) / 86400).round
     duration > 0 ? duration : 0
   end
 

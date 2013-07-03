@@ -43,7 +43,7 @@
         %label.control-label
           Model
         .controls
-          %input{ value: @asset.model.try(:name), readonly: :readonly, type: :text}
+          %input{ value: @asset.model.name, readonly: :readonly, type: :text}
       .control-group
         %label.control-label
           Warranty

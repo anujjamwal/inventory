@@ -3,7 +3,7 @@
     "Initial" => {
       "General" => [
         {
-          :name => "Model",
+          :name => "Something",
           :input_element_type => :text,
           :required => true,
           :value_fill_expression => "",
