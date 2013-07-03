@@ -1,0 +1,12 @@
+script: "bin/rake --trace 2>&1"
+bundler_args: "--binstubs --without documentation"
+language: ruby
+before_install: gem install bundler
+before_script:
+  - rake db:migrate
+rvm:
+  - 1.9.3
+  - 2.0.0
+env:
+  - RAILS_VERSION=4.0.0
+  - RAILS_VERSION=master
