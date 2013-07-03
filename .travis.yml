@@ -1,9 +1,9 @@
-script: "bin/rake --trace 2>&1"
+script: "bundle exec rspec"
 bundler_args: "--binstubs --without documentation"
 language: ruby
-before_install: gem install bundler
+before_install: "gem install bundler"
 before_script:
-  - rake db:migrate
+  - "bundle exec rake db:migrate RAILS_ENV=test"
 rvm:
   - 1.9.3
   - 2.0.0
