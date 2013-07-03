@@ -42,6 +42,8 @@ class AssetsController < ApplicationController
 
   def show
     @asset_type = @asset.asset_type
+
+    @labels = [@asset_type.name]
   end
 
   private

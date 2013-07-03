@@ -1,6 +1,13 @@
 .breadcrumb
-  = link_to 'Clone', clone_asset_path(id: @asset.id), class: 'btn'
-  %a.btn{href: '#delete'} Remove
+  .pull-right
+    = link_to 'Clone', clone_asset_path(id: @asset.id), class: 'btn btn-info'
+    %a.btn.btn-danger{href: '#delete'} Remove
+  - if @labels.present?
+    .labels
+      - @labels.each do |label|
+        %span.label.label-important
+          = label
+
 
 - input_groups = @asset.asset_attributes_groups.load
 .tabbable
