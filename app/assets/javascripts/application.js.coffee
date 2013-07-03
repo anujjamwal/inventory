@@ -27,5 +27,6 @@ $(document).ready ->
 
   return
 
-$(document).on 'click', '[data-url]', ->
+$(document).on( 'click', '[data-url]', ->
   window.location = $(this).data('url')
+)
