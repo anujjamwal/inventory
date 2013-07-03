@@ -1,23 +1,25 @@
-IS Inventory Dashboard
+#dashboard_page.page
+  - @assets = Asset.with_warranty_less_than_3_months
+  - if @assets.present?
+    #warranty_pending_assets.hero-unit.dashboard
+      .title
+        Assets With warranty expiring in less than 3 Months
+      #warranty_pending_assets_list
+        = render :partial => 'assets/asset_table'
 
-%ul.nav
-  %li
-    = link_to 'Asset Types', asset_types_path
-  %li
-    = link_to 'Assets', assets_path
-
-.widget.medium
-  .head
-    %em Assets
-  .body
-    .tr
-      .td Total Count
-      .td
-        = Asset.count
-    - AssetType.all.each do |ty|
-      .tr
-        .td
-          = ty.name
-        .td
-          = Asset.where(asset_type_id: ty.id).count
-
+  #asset_details.hero-unit.tiles-container
+    %ul.assets-tiles.thumbnails
+      - AssetType.all.each do |asset_type|
+        - asset_unassigned_count = Asset.unassigned_count(asset_type.id)
+        %li.tile.text-center
+          %a.thumbnail
+            - if asset_unassigned_count > 0
+              %label.text-center.alert-success.asset-label Available
+            - else
+              %label.text-center.alert-error.asset-label Not Available
+            %img.asset-image{src: asset_type.image}
+            .asset-stats
+              = asset_unassigned_count
+            .asset-name
+              = asset_type.name
+            %button.btn.btn-block View All

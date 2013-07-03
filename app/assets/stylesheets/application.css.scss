@@ -14,9 +14,8 @@
 @import "bootstrap";
 @import 'font-awesome';
 
-
 .table-hover {
-  tr {
+  tr:not(.no-data) {
       cursor: pointer;
   }
 }

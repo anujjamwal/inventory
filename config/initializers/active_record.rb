@@ -1,0 +1,1 @@
+DATABASE_ADAPTER = ActiveRecord::Base.connection.instance_variable_get(:@config)[:adapter]

@@ -74,4 +74,86 @@ class Asset < ActiveRecord::Base
   def init_assignment
     self.assignments.new(type: Unassigned.name, assignment_date: self.procurement_date).save!
   end
+
+
+  class <<self
+    def with_warranty_less_than_3_months
+      case DATABASE_ADAPTER
+        when 'sqlite3'
+          Asset.find_by_sql <<-SQL
+          Select a.*
+          From ASSETS a, WARRANTIES b
+          where
+            a.warranty_id = b.id
+            AND
+            (b.duration_in_days - (julianday() - julianday(a.warranty_start))) < 90
+          SQL
+        when /mysql/
+          Asset.find_by_sql <<-SQL
+          Select a.*
+          From ASSETS a, WARRANTIES b
+          where
+            a.warranty_id = b.id
+            AND
+            (b.duration_in_days - DATEDIFF(NOW(), a.warranty_start)) < 90
+          SQL
+        else
+          []
+      end
+    end
+
+    def unassigned asset_type_id=nil
+      if asset_type_id.present?
+        Asset.find_by_sql unassigned_assets_for_type_query(asset_type_id)
+      else
+        Asset.find_by_sql unassigned_assets_query
+      end
+    end
+
+    def unassigned_count asset_type_id=nil
+      if asset_type_id.present?
+        ActiveRecord::Base.connection.execute("SELECT COUNT(id) FROM (#{unassigned_assets_for_type_query(asset_type_id)})").first[0]
+      else
+        ActiveRecord::Base.connection.execute("SELECT COUNT(id) FROM (#{unassigned_assets_query})").first[0]
+      end
+    end
+
+    private
+    def unassigned_assets_query
+      <<-SQL
+        SELECT a.*
+        FROM ASSETS a, (
+          SELECT asset_id
+          From (
+            SELECT DISTINCT(asset_id), type
+            FROM assignments
+            GROUP BY asset_id
+            ORDER BY assignment_date
+          )
+          WHERE type = 'Unassigned'
+        ) b
+        WHERE a.id = b.asset_id
+      SQL
+    end
+
+    def unassigned_assets_for_type_query asset_type_id
+      <<-SQL
+        SELECT a.*
+        FROM ASSETS a, (
+          SELECT asset_id
+          From (
+            SELECT DISTINCT(asset_id), type
+            FROM assignments
+            GROUP BY asset_id
+            ORDER BY assignment_date
+          )
+          WHERE type = 'Unassigned'
+        ) b
+        WHERE
+          a.id = b.asset_id
+          AND
+          a.asset_type_id = #{asset_type_id}
+      SQL
+    end
+  end
 end

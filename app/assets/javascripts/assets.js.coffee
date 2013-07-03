@@ -1,8 +1,8 @@
 $(document).ready ->
-  $('#assets_list tr .btn').click (e)->
+  $('.assets-list tr:not(.no-data) .btn').click (e)->
     window.location = $(this).attr('href')
     return false
 
-  $('#assets_list tr').click ->
+  $('.assets-list tr:not(.no-data)').click ->
     window.location = $(this).data('url')
     return
