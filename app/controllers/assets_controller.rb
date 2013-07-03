@@ -28,7 +28,7 @@ class AssetsController < ApplicationController
     @labels = []
     @labels << (AssetType.find_by(id: params[:type]).name rescue 'Unknown Asset Type') if params[:type]
 
-    if params[:assignment].downcase == 'unassigned'
+    if params[:assignment].try(:downcase) == 'unassigned'
       @labels << 'Unassigned'
       @assets = Asset.unassigned(params[:type]||0)
     else
