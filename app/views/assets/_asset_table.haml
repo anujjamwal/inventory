@@ -12,22 +12,22 @@
         %td{colspan: 100}
           No Assets Present
     - @assets.each do |asset|
-      %tr{ id: asset.id, 'data-url' => asset_path(asset) }
-        %td.type
+      %tr{ id: asset.id}
+        %td.type{'data-url' => asset_path(asset) }
           = asset.asset_type.name
-        %td.asset_id
+        %td.asset_id{'data-url' => asset_path(asset) }
           = asset.asset_id
-        %td.serial
+        %td.serial{'data-url' => asset_path(asset) }
           = asset.serial
-        %td.company
+        %td.company{'data-url' => asset_path(asset) }
           = asset.company.name
-        %td.model
+        %td.model{'data-url' => asset_path(asset) }
           = asset.model.name
-        %td.warranty
+        %td.warranty{'data-url' => asset_path(asset) }
           = asset.warranty.name
-        %td.warranty_left
+        %td.warranty_left{'data-url' => asset_path(asset) }
           = asset.warranty_left
-        %td.assignment
+        %td.assignment{'data-url' => asset_path(asset) }
           = asset.current_assignment.description
         %td.action
-          = link_to 'Clone', clone_asset_path(id: asset.id), class: 'btn'
+          %button.btn{'data-url' => clone_asset_path(id: asset.id)} Clone

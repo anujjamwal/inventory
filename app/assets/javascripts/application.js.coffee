@@ -14,7 +14,6 @@
 # = require jquery_ujs
 # = require turbolinks
 # = require bootstrap
-# = require assets
 # = require bootstrap-datepicker
 
 $(document).ready ->
@@ -27,6 +26,8 @@ $(document).ready ->
 
   return
 
-$(document).on( 'click', '[data-url]', ->
-  window.location = $(this).data('url')
-)
+$(document).on 'click', '[data-url]',
+  (e)->
+    window.location = $(this).data('url')
+    e.preventDefault()
+    return false
