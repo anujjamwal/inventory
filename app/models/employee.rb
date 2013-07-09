@@ -1,5 +1,5 @@
 class Employee < ActiveRecord::Base
-  has_many :assignments
+  has_many :assignments, foreign_key: :assignee_id
 
   validates :emp_id, uniqueness: true, presence: true
 

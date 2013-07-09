@@ -3,7 +3,6 @@ require 'spec_helper'
 describe Assignment do
   context :associations do
     it { should belong_to(:asset) }
-    it { should belong_to(:employee) }
   end
 
   context :no_update do

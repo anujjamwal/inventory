@@ -17,8 +17,8 @@ describe Asset do
   context :current_assignment do
     it 'should return the current assignment for the asset' do
       asset = FactoryGirl.create :asset
-      asset.assignments.create! type: EmployeeAssignment.name, employee: Employee.create(emp_id: 12345)
-      assignment = asset.assignments.create! type: EmployeeAssignment.name, employee: Employee.create(emp_id: 1234)
+      asset.assignments.create! type: EmployeeAssignment.name, assignee_id: Employee.create(emp_id: 12345).id
+      assignment = asset.assignments.create! type: EmployeeAssignment.name, assignee_id: Employee.create(emp_id: 1234).id
 
       asset.current_assignment.should == assignment
     end
