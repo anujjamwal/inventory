@@ -1,6 +1,6 @@
 Assign Asset
 = form_for [ @asset, @asset.assignments.new ] do |f|
-  = f.select :type, options_for_select([EmployeeAssignment.name, Unassigned.name])
-  = f.text_field :employee_id, placeholder: 'Employee ID'
-  = f.text_field :assignment_date, type: :date
+  = f.select :type, options_for_select([EmployeeAssignment.name, ProjectAssignment.name, Unassigned.name], selected: Unassigned.name)
+  = f.text_field :assignee_id, placeholder: 'Employee ID/Project Code'
+  = f.text_field :assignment_date, type: :date, value: Time.now.strftime('%d/%b/%Y')
   = f.submit
