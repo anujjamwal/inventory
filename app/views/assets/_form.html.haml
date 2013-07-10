@@ -26,18 +26,26 @@
 					= t.label :office_id, 'Office'
 					.controls
 						= t.select :office_id, options_for_select([['Select', nil]] + Office.all.map{|c| [c.name, c.id]}, @asset.office_id)
+						%a{href: '#new_office', 'data-toggle' => :modal}
+							%span.icon-plus-sign
 				.control-group
 					= t.label :company_id, 'Company'
 					.controls
 						= t.select :company_id, options_for_select([['Select', nil]] + Company.all.map{|c| [c.name, c.id]}, @asset.company_id)
+						%a{href: '#new_company', 'data-toggle' => :modal}
+							%span.icon-plus-sign
 				.control-group
 					= t.label :model_id, 'Model'
 					.controls
 						= t.select :model_id, options_for_select([['Select', nil]] + Model.where(asset_type_id: @asset_type).map{|c| [c.name, c.id]}, @asset.model_id)
+						%a{href: '#new_model', 'data-toggle' => :modal}
+							%span.icon-plus-sign
 				.control-group
 					= t.label :warranty_id, 'Warranty'
 					.controls
 						= t.select :warranty_id, options_for_select([['Select', nil]] + Warranty.all.map{|c| [c.name, c.id]},  @asset.warranty_id)
+						%a{href: '#new_warranty', 'data-toggle' => :modal}
+							%span.icon-plus-sign
 				.control-group
 					= t.label :warranty_start, 'Warranty Start Date'
 					.controls

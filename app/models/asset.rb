@@ -15,6 +15,7 @@ class Asset < ActiveRecord::Base
   belongs_to :warranty
   belongs_to :model
   belongs_to :form
+  belongs_to :office
 
   after_find :bind_getter_for_attributes
   after_create :init_assignment

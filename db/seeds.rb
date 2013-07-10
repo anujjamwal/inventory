@@ -28,8 +28,7 @@
     v1.each do |k2,v2|
       attr_group = form.form_attributes_groups.where(name: k2).first_or_create!
       v2.each do |v3|
-        attrs = attr_group.form_attributes.where(name:  v3[:name]).first_or_create!
-        attrs.update_attributes! v3
+        attrs = attr_group.form_attributes.where(v3).first_or_create!
       end
     end
   end
