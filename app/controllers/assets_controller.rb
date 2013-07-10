@@ -1,6 +1,8 @@
 class AssetsController < ApplicationController
   before_filter :load_asset_type, only: [:new, :create]
   before_filter :load_asset, only: [:show, :clone]
+  skip_before_filter :authorize!, only: [:show]
+
 
   def new
     @form = @asset_type.forms.last
@@ -44,8 +46,8 @@ class AssetsController < ApplicationController
   end
 
   def show
+    render text: 'unauthorized', status: 401 and return if !current_user.admin? and @asset.current_assignment.class != EmployeeAssignment and @asset.current_assignment.assignee_id != current_user.id
     @asset_type = @asset.asset_type
-
     @labels = [@asset_type.name]
   end
 

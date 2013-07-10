@@ -11,6 +11,7 @@ Inventory::Application.routes.draw do
   end
 
   get 'dashboard' => 'users#dashboard'
+  get 'dashboards/employee' => 'users#employee_dashboard', as: :employee_dashboard
   get 'logout' => 'application#logout'
 
   resources :warranties, only: [:create, :index]
@@ -18,6 +19,8 @@ Inventory::Application.routes.draw do
   resources :countries, only: [:create, :index]
   resources :models, only: [:create, :index]
   resources :companies, only: [:create, :index]
+
+  post 'users/:id/toggle_admin' => 'users#toggle_admin', as: :user_toggle_admin unless Rails.env.production?
 
   root to: 'application#root'
 end

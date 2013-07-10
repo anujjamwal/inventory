@@ -5,19 +5,24 @@
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
     = csrf_meta_tags
   %body.default-theme
+    - unless Rails.env.production?
+      = link_to 'Toggle Admin', user_toggle_admin_path(id: @current_user.id), method: :post, class: 'btn btn-warn'
     .container
       .navbar
         .navbar-inner
           = link_to 'TW Inventory', root_path, class: 'brand'
-          %ul.nav
-            %li
-              = link_to 'Asset Types', asset_types_path
-            %li
-              = link_to 'Assets', assets_path
+          - if @current_user.admin?
+            %ul.nav
+              %li
+                = link_to 'Asset Types', asset_types_path
+              %li
+                = link_to 'Assets', assets_path
+
           %a#logout.pull-right.btn{href: logout_path}
             %span.icon-off
 
-          = render :partial => 'assets/search_asset'
+          - if @current_user.admin?
+            = render :partial => 'assets/search_asset'
 
       = yield
 
