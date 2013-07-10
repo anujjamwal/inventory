@@ -1,4 +1,6 @@
 class Project < ActiveRecord::Base
+  validates :project_code, presence: true, uniqueness: true
+
   def self.find_by_project_code code
     project = Project.find_by(project_code: code)
     if project.nil?

@@ -191,6 +191,15 @@ class Asset < ActiveRecord::Base
 
         UNION
 
+        Select assets.*
+        from assets, companies
+        where
+          LOWER(companies.name) LIKE "%#{key}%"
+          AND
+          companies.id = assets.company_id
+
+        UNION
+
           Select assets.*
           from assets, models
           where
