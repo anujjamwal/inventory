@@ -28,6 +28,16 @@ table {
 
 body {
   padding-top: 60px;
+
+  #wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    width: 100%;
+    margin: 0 auto -40px;
+    position: fixed;
+    left: 0;
+  }
 }
 
 #logout {
@@ -54,4 +64,12 @@ body {
 
 #search_assets_form {
   margin-right: 30px;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
 }

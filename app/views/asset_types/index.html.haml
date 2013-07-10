@@ -4,6 +4,8 @@
     %tr.heading
       %th S.No
       %th Name
+      %th Total Assets
+      %th Unassigned Assets
       %th Action
   %tbody
     - @asset_types.each_with_index do |asset_type, index|
@@ -12,5 +14,9 @@
           = index
         %td.name
           = asset_type.name
+        %td.total_assets
+          = asset_type.total_asset_count
+        %td.unassigned_assets
+          = asset_type.unassigned_count
         %td.action
           = link_to 'Add Asset', new_asset_type_asset_path(asset_type), class: 'btn'
