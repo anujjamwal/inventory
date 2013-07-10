@@ -13,5 +13,9 @@ Inventory::Application.routes.draw do
   get 'dashboard' => 'users#dashboard'
   get 'logout' => 'application#logout'
 
+  resources :warranties, only: [:create, :index]
+  resources :offices, only: [:create, :index]
+  resources :countries, only: [:create, :index]
+
   root to: 'application#root'
 end
