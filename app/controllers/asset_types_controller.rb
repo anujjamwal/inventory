@@ -27,14 +27,17 @@ class AssetTypesController < ApplicationController
 
   def asset_type_json
     result = []
-    @asset_types.each do |type|
+    asset_types_paginate = @asset_types.paginate(page: params[:page], per_page: 4)
+    asset_types_paginate.each do |type|
       unassigned_count = Asset.unassigned_count(type.id)
       result << {
           unassigned: unassigned_count,
           image: type.image,
-          status: unassigned_count > 0 ? t('asset_type.available') : t('asset_type.unavailable')
+          status: unassigned_count > 0 ? t('asset_type.available') : t('asset_type.unavailable'),
+          name: type.name,
+          id: type.id
       }
     end
-    result
+    {total: asset_types_paginate.total_pages, current: asset_types_paginate.current_page.to_i, data: result}
   end
 end
