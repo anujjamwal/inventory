@@ -1,3 +1,4 @@
 Inventory for IS TW
 
 {<img src="https://travis-ci.org/anujjamwal/inventory.png" />}[https://travis-ci.org/anujjamwal/inventory]
+{<img src="https://coveralls.io/repos/celluloid/celluloid/badge.png?branch=master" />}[https://coveralls.io/r//anujjamwal/inventory)
