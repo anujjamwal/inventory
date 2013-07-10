@@ -8,23 +8,23 @@
         = render :partial => 'assets/asset_table'
 
   #asset_details.hero-unit.tiles-container
-    %label.btn-link.view-more-link{for: 'view-more'} View More
+    %label.hero-end.btn-link.view-more-link{for: 'view-more'} View More
     %ul.assets-tiles.thumbnails
       - AssetType.all.each do |asset_type|
         - asset_unassigned_count = Asset.unassigned_count(asset_type.id)
         %li.tile.text-center
           %a.thumbnail
             - if asset_unassigned_count > 0
-              %label.text-center.alert-success.asset-label{'data-url' => assets_path(type: asset_type.id, assignment: :unassigned)} Available
+              %label.text-center.alert-success.asset-label{'data-url' => assets_path(asset_type_id: asset_type.id, assignment: :unassigned)} Available
             - else
               %label.text-center.alert-error.asset-label Not Available
             %img.asset-image{src: asset_type.image}
             - if asset_unassigned_count > 0
-              .asset-stats.alert-success{'data-url' => assets_path(type: asset_type.id, assignment: :unassigned)}
+              .asset-stats.alert-success{'data-url' => assets_path(asset_type_id: asset_type.id, assignment: :unassigned)}
                 = asset_unassigned_count
             - else
               .asset-stats.alert-error
                 = 0
             .asset-name
               = asset_type.name
-            %button.btn.btn-block{'data-url' => assets_path(type: asset_type.id)} View All
+            %button.btn.btn-block{'data-url' => assets_path(asset_type_id: asset_type.id)} View All

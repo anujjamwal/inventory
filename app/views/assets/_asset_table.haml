@@ -1,7 +1,5 @@
 - headings = {type: 'Type', asset_id: 'Asset ID', serial: 'Serial No.', company: 'Company', model: 'Model', warranty: 'Warranty', warranty_left: 'Warranty Left (days)', assignment: 'Assignment', action: 'Action'}
 %table.table.table-hover.table-bordered.assets-list
-  %caption
-    = t('asset.list.caption')
   %thead
     - headings.each do |c, heading|
       %th{ class: c}

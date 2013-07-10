@@ -19,17 +19,6 @@ class Asset < ActiveRecord::Base
   after_find :bind_getter_for_attributes
   after_create :init_assignment
 
-  def self.build_from_form form
-    asset = Asset.new
-    form.form_attributes_groups.each do |group|
-      g = asset.asset_attributes_groups.build name: group.name, form_attributes_group: group
-      group.form_attributes.each do |attr|
-        g.asset_attributes.build name: attr.name, form_attribute: attr
-      end
-    end if form.present?
-    asset
-  end
-
   def clone
     asset = Asset.new
     self.form.form_attributes_groups.each do |group|
@@ -77,6 +66,21 @@ class Asset < ActiveRecord::Base
 
 
   class <<self
+    def search key
+      Asset.find_by_sql free_text_search(key)
+    end
+
+    def build_from_form form
+      asset = Asset.new
+      form.form_attributes_groups.each do |group|
+        g = asset.asset_attributes_groups.build name: group.name, form_attributes_group: group
+        group.form_attributes.each do |attr|
+          g.asset_attributes.build name: attr.name, form_attribute: attr
+        end
+      end if form.present?
+      asset
+    end
+
     def with_warranty_less_than_3_months
       case DATABASE_ADAPTER
         when 'sqlite3'
@@ -153,6 +157,45 @@ class Asset < ActiveRecord::Base
           a.id = b.asset_id
           AND
           a.asset_type_id = ?
+      SQL
+    end
+
+    def free_text_search key
+      key = key.downcase
+      <<-SQL
+        Select *
+        from assets
+        where
+          LOWER(serial) LIKE "%#{key}%"
+
+        UNION
+
+        Select a.*
+        from assets a, asset_attributes_groups b, asset_attributes c
+        where
+          a.id = b.asset_id
+          AND
+          b.id = c.asset_attributes_group_id
+          AND
+          LOWER(c.value) LIKE "%#{key}%"
+
+        UNION
+
+        Select assets.*
+        from assets, warranties
+        where
+          LOWER(warranties.name) LIKE "%#{key}%"
+          AND
+          warranties.id = assets.warranty_id
+
+        UNION
+
+          Select assets.*
+          from assets, models
+          where
+            LOWER(models.name) LIKE "%#{key}%"
+            AND
+            models.id = assets.model_id
       SQL
     end
   end

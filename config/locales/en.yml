@@ -24,3 +24,6 @@ en:
   asset:
     list:
       caption: "Asset List"
+  asset_type:
+    available: "Available"
+    unavailable: "Unavailable"

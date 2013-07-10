@@ -13,12 +13,13 @@
     padding: 50px 20px;
     margin-bottom: 60px;
 
-
-    .view-more-link {
+    .hero-end {
       position: absolute;
       bottom: -30px;
-      width: 100px;
       display: inline-block;
+    }
+    .view-more-link {
+      width: 100px;
       text-align: center;
       margin-left: 50%;
       left: -50px;

@@ -24,20 +24,23 @@ class AssetsController < ApplicationController
     end
   end
 
+  SEARCHABLE = %w{asset_type_id}
   def index
-    @labels = []
-    @labels << (AssetType.find_by(id: params[:type]).name rescue 'Unknown Asset Type') if params[:type]
+    @labels = [t('asset.list.caption')]
+    search_params = params.slice SEARCHABLE
 
-    if params[:assignment].try(:downcase) == 'unassigned'
-      @labels << 'Unassigned'
-      @assets = Asset.unassigned(params[:type]||0)
-    else
-      if params[:type].nil?
-        @assets = Asset.all.reverse_order
-      else
-        @assets = Asset.where(asset_type_id: params[:type]).reverse_order
-      end
-    end
+    @assets = if params[:assignment].try(:downcase) == 'unassigned'
+                @labels << 'Unassigned'
+                Asset.unassigned(params[:asset_type_id]||0)
+              elsif params[:q].present?
+                @labels << "Search Key: #{params[:q]}"
+                Asset.search params[:q]
+              elsif search_params.size > 0
+                @labels << search_params.map{|k,v| "#{k} = #{v}"}
+                Asset.where(search_params).reverse_order
+              else
+                Asset.all.reverse_order
+              end
   end
 
   def show

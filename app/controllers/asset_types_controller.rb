@@ -14,10 +14,27 @@ class AssetTypesController < ApplicationController
 
   def index
     @asset_types = AssetType.all
+    respond_to do |format|
+      format.html
+      format.json { render json: asset_type_json }
+    end
   end
 
   private
   def asset_type_params
     params[:asset_type].permit(:name)
+  end
+
+  def asset_type_json
+    result = []
+    @asset_types.each do |type|
+      unassigned_count = Asset.unassigned_count(type.id)
+      result << {
+          unassigned: unassigned_count,
+          image: type.image,
+          status: unassigned_count > 0 ? t('asset_type.available') : t('asset_type.unavailable')
+      }
+    end
+    result
   end
 end
