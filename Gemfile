@@ -9,6 +9,7 @@ group :test do
   gem 'shoulda-matchers'
   gem 'pry'
   gem 'factory_girl_rails'
+  gem 'coveralls', require: false
 end
 
 group :cucumber do
