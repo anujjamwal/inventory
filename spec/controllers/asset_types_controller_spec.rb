@@ -3,6 +3,7 @@ require 'spec_helper'
 describe AssetTypesController do
   before do
     RubyCAS::Filter.fake('homer')
+    controller.stub 'authorize!' => true
   end
 
   it 'should serve the new asset type page' do

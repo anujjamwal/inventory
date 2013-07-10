@@ -4,6 +4,7 @@ describe AssignmentsController do
   let(:asset) {FactoryGirl.create(:asset)}
   before do
     RubyCAS::Filter.fake('homer')
+    controller.stub 'authorize!' => true
   end
 
   context 'create' do
