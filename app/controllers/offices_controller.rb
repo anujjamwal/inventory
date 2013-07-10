@@ -11,6 +11,6 @@ class OfficesController < ApplicationController
 
   private
   def office_params
-    params.permit(:office).permit(:name, :country_id)
+    params.require(:office).permit(:name, :country_id)
   end
 end

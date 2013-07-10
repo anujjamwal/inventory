@@ -16,6 +16,8 @@ Inventory::Application.routes.draw do
   resources :warranties, only: [:create, :index]
   resources :offices, only: [:create, :index]
   resources :countries, only: [:create, :index]
+  resources :models, only: [:create, :index]
+  resources :companies, only: [:create, :index]
 
   root to: 'application#root'
 end

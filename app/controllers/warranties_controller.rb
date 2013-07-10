@@ -11,6 +11,6 @@ class WarrantiesController < ApplicationController
 
   private
   def warranty_params
-    params.permit(:warranty).permit(:name, :description, :company_id, :duration_in_days)
+    params.require(:warranty).permit(:name, :description, :company_id, :duration_in_days)
   end
 end
