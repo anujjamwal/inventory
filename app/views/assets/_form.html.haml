@@ -23,6 +23,10 @@
 					.controls
 						= t.text_field :serial
 				.control-group
+					= t.label :office_id, 'Office'
+					.controls
+						= t.select :office_id, options_for_select([['Select', nil]] + Office.all.map{|c| [c.name, c.id]}, @asset.office_id)
+				.control-group
 					= t.label :company_id, 'Company'
 					.controls
 						= t.select :company_id, options_for_select([['Select', nil]] + Company.all.map{|c| [c.name, c.id]}, @asset.company_id)

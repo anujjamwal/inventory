@@ -36,6 +36,11 @@
           %input{ value: @asset.serial, readonly: :readonly, type: :text}
       .control-group
         %label.control-label
+          Office
+        .controls
+          %input{ value: @asset.office.name, readonly: :readonly, type: :text}
+      .control-group
+        %label.control-label
           Company
         .controls
           %input{ value: @asset.company.name, readonly: :readonly, type: :text}
