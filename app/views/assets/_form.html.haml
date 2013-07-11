@@ -1,78 +1,80 @@
 %legend
-	= @asset_type.name
-= form_for [@asset_type, @asset], html: {class: 'form-horizontal'} do |t|
-	= t.hidden_field :form_id, value: @form.try(:id)
-	- input_groups = @asset.asset_attributes_groups
-	.tabbable
-		%ul.nav.nav-tabs
-			%li.active
-				%a{'data-toggle' => 'tab', href: '#tab_assignment'} General
-			- (input_groups.collect(&:name)||[]).each do |name|
-				%li
-					%a{'data-toggle' => 'tab', :href => "#tab_#{name.snake_case}"}
-						= name
+  = @asset_type.name
+= form_for [@asset_type, @asset] do |t|
+  = t.hidden_field :form_id, value: @form.try(:id)
+  - input_groups = @asset.asset_attributes_groups
+  .tabbable
+    %ul.nav.nav-tabs
+      %li.active
+        %a{'data-toggle' => 'tab', href: '#tab_assignment'} General
+      - (input_groups.collect(&:name)||[]).each do |name|
+        %li
+          %a{'data-toggle' => 'tab', :href => "#tab_#{name.snake_case}"}
+            = name
 
-		.tab-content
-			.tab-pane.active{id: 'tab_assignment'}
-				.control-group
-					= t.label :asset_id, 'Asset ID'
-					.controls
-						= t.text_field :asset_id
-				.control-group
-					= t.label :serial, 'Serial'
-					.controls
-						= t.text_field :serial
-				.control-group
-					= t.label :office_id, 'Office'
-					.controls
-						= t.select :office_id, options_for_select([['Select', nil]] + Office.all.map{|c| [c.name, c.id]}, @asset.office_id)
-						%a{href: '#new_office', 'data-toggle' => :modal}
-							%span.icon-plus-sign
-				.control-group
-					= t.label :company_id, 'Company'
-					.controls
-						= t.select :company_id, options_for_select([['Select', nil]] + Company.all.map{|c| [c.name, c.id]}, @asset.company_id)
-						%a{href: '#new_company', 'data-toggle' => :modal}
-							%span.icon-plus-sign
-				.control-group
-					= t.label :model_id, 'Model'
-					.controls
-						= t.select :model_id, options_for_select([['Select', nil]] + Model.where(asset_type_id: @asset_type).map{|c| [c.name, c.id]}, @asset.model_id)
-						%a{href: '#new_model', 'data-toggle' => :modal}
-							%span.icon-plus-sign
-				.control-group
-					= t.label :warranty_id, 'Warranty'
-					.controls
-						= t.select :warranty_id, options_for_select([['Select', nil]] + Warranty.all.map{|c| [c.name, c.id]},  @asset.warranty_id)
-						%a{href: '#new_warranty', 'data-toggle' => :modal}
-							%span.icon-plus-sign
-				.control-group
-					= t.label :warranty_start, 'Warranty Start Date'
-					.controls
-						= t.text_field :warranty_start, type: :date
-				.control-group
-					= t.label :procurement_date, 'Procurement Date'
-					.controls
-						= t.text_field :procurement_date, type: :date
+    .tab-content
+      .tab-pane.active{id: 'tab_assignment'}
+        .form-horizontal
+          .control-group
+            = t.label :asset_id, 'Asset ID', class: 'control-label'
+            .controls
+              = t.text_field :asset_id
+          .control-group
+            = t.label :serial, 'Serial', class: 'control-label'
+            .controls
+              = t.text_field :serial
+          .control-group
+            = t.label :office_id, 'Office', class: 'control-label'
+            .controls
+              = t.select :office_id, options_for_select([['Select', nil]] + Office.all.map{|c| [c.name, c.id]}, @asset.office_id)
+              %a{href: '#new_office', 'data-toggle' => :modal}
+                %span.icon-plus-sign
+          .control-group
+            = t.label :company_id, 'Company', class: 'control-label'
+            .controls
+              = t.select :company_id, options_for_select([['Select', nil]] + Company.all.map{|c| [c.name, c.id]}, @asset.company_id)
+              %a{href: '#new_company', 'data-toggle' => :modal}
+                %span.icon-plus-sign
+          .control-group
+            = t.label :model_id, 'Model', class: 'control-label'
+            .controls
+              = t.select :model_id, options_for_select([['Select', nil]] + Model.where(asset_type_id: @asset_type).map{|c| [c.name, c.id]}, @asset.model_id)
+              %a{href: '#new_model', 'data-toggle' => :modal}
+                %span.icon-plus-sign
+          .control-group
+            = t.label :warranty_id, 'Warranty', class: 'control-label'
+            .controls
+              = t.select :warranty_id, options_for_select([['Select', nil]] + Warranty.all.map{|c| [c.name, c.id]},  @asset.warranty_id)
+              %a{href: '#new_warranty', 'data-toggle' => :modal}
+                %span.icon-plus-sign
+          .control-group
+            = t.label :warranty_start, 'Warranty Start Date', class: 'control-label'
+            .controls
+              = t.text_field :warranty_start, type: :date
+          .control-group
+            = t.label :procurement_date, 'Procurement Date', class: 'control-label'
+            .controls
+              = t.text_field :procurement_date, type: :date
 
-			- input_groups.each do |group|
-				= t.fields_for 'asset_attributes_groups_attributes[]', group do |f|
-					.tab-pane{:id => "tab_#{group.name.snake_case}"}
-						= f.hidden_field :form_attributes_group_id
-						= f.hidden_field :name
-						- group.asset_attributes.each_with_index do |asset_attribute, i|
-							= f.fields_for 'asset_attributes_attributes[]', asset_attribute do |g|
-								- form_attribute = asset_attribute.form_attribute
-								.control-group
-									= g.hidden_field :name
-									= g.hidden_field :form_attribute_id
-									- key = form_attribute.name.snake_case
-									= g.label :value, form_attribute.name, class: "control-label"
-									.controls
-										- params = {id:  "asset_#{key}_#{i}", type: form_attribute.input_element_type}
-										- params[:required]= :required if form_attribute.required?
-										= g.text_field :value, params
+      - input_groups.each do |group|
+        = t.fields_for 'asset_attributes_groups_attributes[]', group do |f|
+          .tab-pane{:id => "tab_#{group.name.snake_case}"}
+            .form-horizontal
+              = f.hidden_field :form_attributes_group_id
+              = f.hidden_field :name
+              - group.asset_attributes.each_with_index do |asset_attribute, i|
+                = f.fields_for 'asset_attributes_attributes[]', asset_attribute do |g|
+                  - form_attribute = asset_attribute.form_attribute
+                  .control-group
+                    = g.hidden_field :name
+                    = g.hidden_field :form_attribute_id
+                    - key = form_attribute.name.snake_case
+                    = g.label :value, form_attribute.name, class: "control-label"
+                    .controls
+                      - params = {id:  "asset_#{key}_#{i}", type: form_attribute.input_element_type}
+                      - params[:required]= :required if form_attribute.required?
+                      = g.text_field :value, params
 
-	.control-group
-		.controls
-			= t.submit "Create", class: "btn btn-primary btn-large"
+  .control-group
+    .controls
+      = t.submit "Create", class: "btn btn-primary btn-large"

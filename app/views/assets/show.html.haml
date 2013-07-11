@@ -24,46 +24,47 @@
 
   .tab-content
     .tab-pane.active{:id => 'tab_general_data'}
-      .control-group
-        %label.control-label
-          Asset ID
-        .controls
-          %input{ value: @asset.asset_id, readonly: :readonly, type: :text}
-      .control-group
-        %label.control-label
-          Serial Number
-        .controls
-          %input{ value: @asset.serial, readonly: :readonly, type: :text}
-      .control-group
-        %label.control-label
-          Office
-        .controls
-          %input{ value: @asset.office.name, readonly: :readonly, type: :text}
-      .control-group
-        %label.control-label
-          Company
-        .controls
-          %input{ value: @asset.company.name, readonly: :readonly, type: :text}
-      .control-group
-        %label.control-label
-          Model
-        .controls
-          %input{ value: @asset.model.name, readonly: :readonly, type: :text}
-      .control-group
-        %label.control-label
-          Warranty
-        .controls
-          %input{ value: @asset.warranty.name, readonly: :readonly, type: :text}
-      .control-group
-        %label.control-label
-          Warranty Start Date
-        .controls
-          %input{ value: @asset.warranty_start, readonly: :readonly, type: :text}
-      .control-group
-        %label.control-label
-          Procurement Date
-        .controls
-          %input{ value: @asset.procurement_date, readonly: :readonly, type: :text}
+      .form-horizontal
+        .control-group
+          %label.control-label
+            Asset ID
+          .controls
+            %input{ value: @asset.asset_id, readonly: :readonly, type: :text}
+        .control-group
+          %label.control-label
+            Serial Number
+          .controls
+            %input{ value: @asset.serial, readonly: :readonly, type: :text}
+        .control-group
+          %label.control-label
+            Office
+          .controls
+            %input{ value: @asset.office.name, readonly: :readonly, type: :text}
+        .control-group
+          %label.control-label
+            Company
+          .controls
+            %input{ value: @asset.company.name, readonly: :readonly, type: :text}
+        .control-group
+          %label.control-label
+            Model
+          .controls
+            %input{ value: @asset.model.name, readonly: :readonly, type: :text}
+        .control-group
+          %label.control-label
+            Warranty
+          .controls
+            %input{ value: @asset.warranty.name, readonly: :readonly, type: :text}
+        .control-group
+          %label.control-label
+            Warranty Start Date
+          .controls
+            %input{ value: @asset.warranty_start, readonly: :readonly, type: :text}
+        .control-group
+          %label.control-label
+            Procurement Date
+          .controls
+            %input{ value: @asset.procurement_date, readonly: :readonly, type: :text}
     - input_groups.each do |group|
       .tab-pane{id: "tab_#{group.name.snake_case}"}
         .form-horizontal
