@@ -21,10 +21,7 @@ $(document).ready ->
 
   # No HTML5 Date support
   $.each $("input[type=date]"), ->
-    if(this.type == "text")
-      $(this).datepicker(format: 'dd/mm/yyyy')
-
-  return
+      $(this).datepicker(format: 'dd/mm/yyyy').prop('type','text');
 
 $(document).on 'click', '[data-url]',
   (e)->

@@ -50,11 +50,11 @@
           .control-group
             = t.label :warranty_start, 'Warranty Start Date', class: 'control-label'
             .controls
-              = t.text_field :warranty_start, type: :date
+              = t.text_field :warranty_start, type: :date, 'data-value' => Time.now.strftime('%d/%m/%Y'), value: Time.now.strftime('%d/%m/%Y')
           .control-group
             = t.label :procurement_date, 'Procurement Date', class: 'control-label'
             .controls
-              = t.text_field :procurement_date, type: :date
+              = t.text_field :procurement_date, type: :date, 'data-value' => Time.now.strftime('%d/%m/%Y'), value: Time.now.strftime('%d/%m/%Y')
 
       - input_groups.each do |group|
         = t.fields_for 'asset_attributes_groups_attributes[]', group do |f|
