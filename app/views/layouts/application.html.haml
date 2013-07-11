@@ -9,16 +9,16 @@
       #current_role{style: 'position: absolute; right: 0; top: 10px;'}
         .label.label-important
           = 'Current Role'
-          = @current_user.admin? ? 'Admin' : 'Employee'
+          = current_user.admin? ? 'Admin' : 'Employee'
         %br
         %br
-        = link_to 'Toggle', user_toggle_admin_path(id: @current_user.id), method: :post, class: 'btn btn-warn'
+        = link_to 'Toggle', user_toggle_admin_path(id: current_user.id), method: :post, class: 'btn btn-warn'
 
     .container
       .navbar
         .navbar-inner
           = link_to 'TW Inventory', root_path, class: 'brand'
-          - if @current_user.admin?
+          - if current_user.admin?
             %ul.nav
               %li
                 = link_to 'Asset Types', asset_types_path
@@ -28,7 +28,7 @@
           %a#logout.pull-right.btn{href: logout_path}
             %span.icon-off
 
-          - if @current_user.admin?
+          - if current_user.admin?
             = render :partial => 'assets/search_asset'
 
       = yield

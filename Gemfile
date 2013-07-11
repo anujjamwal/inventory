@@ -12,13 +12,6 @@ group :test do
   gem 'coveralls', require: false
 end
 
-group :cucumber do
-  gem 'cucumber'
-  gem 'capybara'
-  gem 'gizmo'
-  gem 'term-ansicolor'
-end
-
 gem 'sqlite3'
 
 gem 'rubycas-client', '2.2.1'

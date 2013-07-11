@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   before_filter RubyCAS::Filter
   append_before_filter :authenticate
   append_before_filter :authorize!
+  helper_method :current_user
 
   def root
     redirect_to dashboard_path
@@ -20,7 +21,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authorize!
-    redirect_to employee_dashboard_path and return false unless @current_user.admin?
+    redirect_to employee_dashboard_path and return false unless current_user.admin?
   end
 
   def current_user
