@@ -6,7 +6,14 @@
     = csrf_meta_tags
   %body.default-theme
     - unless Rails.env.production?
-      = link_to 'Toggle Admin', user_toggle_admin_path(id: @current_user.id), method: :post, class: 'btn btn-warn'
+      #current_role{style: 'position: absolute; right: 0; top: 10px;'}
+        .label.label-important
+          = 'Current Role'
+          = @current_user.admin? ? 'Admin' : 'Employee'
+        %br
+        %br
+        = link_to 'Toggle', user_toggle_admin_path(id: @current_user.id), method: :post, class: 'btn btn-warn'
+
     .container
       .navbar
         .navbar-inner

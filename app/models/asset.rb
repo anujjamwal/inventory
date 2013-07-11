@@ -168,6 +168,8 @@ class Asset < ActiveRecord::Base
         from assets
         where
           LOWER(serial) LIKE "%#{key}%"
+          OR
+          LOWER(asset_id) LIKE "%#{key}%"
 
         UNION
 
