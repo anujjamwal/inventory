@@ -29,7 +29,7 @@ class AssetsController < ApplicationController
   SEARCHABLE = %w{asset_type_id}
   def index
     @labels = [t('asset.list.caption')]
-    search_params = params.slice SEARCHABLE
+    search_params = params.slice *SEARCHABLE
 
     @assets = if params[:assignment].try(:downcase) == 'unassigned'
                 @labels << 'Unassigned'
@@ -38,7 +38,7 @@ class AssetsController < ApplicationController
                 @labels << "Search Key: #{params[:q]}"
                 Asset.search params[:q]
               elsif search_params.size > 0
-                @labels << search_params.map{|k,v| "#{k} = #{v}"}
+                @labels += search_params.map{|k,v| "#{k} = #{v}"}
                 Asset.where(search_params).reverse_order
               else
                 Asset.all.reverse_order

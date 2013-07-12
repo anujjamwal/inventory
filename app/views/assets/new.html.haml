@@ -5,79 +5,79 @@
   .modal-header
     %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
     %h3 New Warranty
-  = form_for Warranty.new, html: {class: 'form-horizontal form'} do |t|
-    .modal-body
+  = form_for Warranty.new, html: {class: 'form-horizontal form ajax'} do |t|
+    .modal-body.form-horizontal
       .control-group
-        = t.label :company_id, 'Company'
+        = t.label :company_id, 'Company', class: 'control-label'
         .controls
           = t.select :company_id, options_for_select([['Select', nil]] + Company.all.map{|c| [c.name, c.id]})
       .control-group
-        = t.label :name, 'Warranty Name'
+        = t.label :name, 'Warranty Name', class: 'control-label'
         .controls
           = t.text_field :name
       .control-group
-        = t.label :duration_in_days, 'Duration(Days)'
+        = t.label :duration_in_days, 'Duration(Days)', class: 'control-label'
         .controls
           = t.text_field :duration_in_days
       .control-group
-        = t.label :description, 'Description'
+        = t.label :description, 'Description', class: 'control-label'
         .controls
           = t.text_area :description
     .modal-footer
       %button.btn{"aria-hidden" => "true", "data-dismiss" => "modal"} Close
-      = t.submit
+      = t.submit class: 'btn'
 
 #new_model.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
   .modal-header
     %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
     %h3 New Model
-  = form_for Model.new do |t|
-    .modal-body
+  = form_for Model.new, html: {class: 'ajax'} do |t|
+    .modal-body.form-horizontal
       .control-group
-        = t.label :company_id, 'Company'
+        = t.label :company_id, 'Company', class: 'control-label'
         .controls
           = t.select :company_id, options_for_select([['Select', nil]] + Company.all.map{|c| [c.name, c.id]})
       .control-group
-        = t.label :asset_type_id, 'Asset Type'
+        = t.label :asset_type_id, 'Asset Type', class: 'control-label'
         .controls
           = t.select :asset_type_id, options_for_select([['Select', nil]] + AssetType.all.map{|c| [c.name, c.id]}, @asset_type.id)
       .control-group
-        = t.label :name, 'Model Name'
+        = t.label :name, 'Model Name', class: 'control-label'
         .controls
           = t.text_field :name
     .modal-footer
       %button.btn{"aria-hidden" => "true", "data-dismiss" => "modal"} Close
-      = t.submit
+      = t.submit class: 'btn'
 
 #new_office.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
   .modal-header
     %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
     %h3 New Office
-  = form_for Office.new do |t|
-    .modal-body
+  = form_for Office.new ,html: {class: 'ajax'}do |t|
+    .modal-body.form-horizontal
       .control-group
-        = t.label :country_id, 'Country'
+        = t.label :country_id, 'Country', class: 'control-label'
         .controls
           = t.select :country_id, options_for_select([['Select', nil]] + Country.all.map{|c| [c.name, c.id]})
       .control-group
-        = t.label :name, 'Office Name'
+        = t.label :name, 'Office Name', class: 'control-label'
         .controls
           = t.text_field :name
     .modal-footer
       %button.btn{"aria-hidden" => "true", "data-dismiss" => "modal"} Close
-      = t.submit
+      = t.submit class: 'btn'
 
 #new_company.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
   .modal-header
     %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
     %h3 New Company
-  = form_for Company.new do |t|
-    .modal-body
+  = form_for Company.new, html: {class: 'ajax'} do |t|
+    .modal-body.form-horizontal
       .control-group
-        = t.label :name, 'Company Name'
+        = t.label :name, 'Company Name', class: 'control-label'
         .controls
           = t.text_field :name
     .modal-footer
       %button.btn{"aria-hidden" => "true", "data-dismiss" => "modal"} Close
-      = t.submit
+      = t.submit class: 'btn'
 

@@ -5,6 +5,7 @@
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
     = csrf_meta_tags
   %body.default-theme
+    #notifications
     - unless Rails.env.production?
       #current_role{style: 'position: absolute; right: 0; top: 10px;'}
         .label.label-important
