@@ -13,7 +13,8 @@
       - AssetType.all.each do |asset_type|
         - asset_unassigned_count = Asset.unassigned_count(asset_type.id)
         %li.tile.text-center
-          %a.thumbnail
+          .thumbnail
+            .flip.icon-reply
             .card
               .front.face
                 - if asset_unassigned_count > 0
@@ -28,15 +29,8 @@
                   .asset-stats.alert-error
                     = 0
               .back.face
-                %table{'data-visualize' => 'true'}
-                  - asset_type.statistics.each do |key, value|
-                    %tr.data
-                      %td.label
-                        = key
-                      %td.value
-                        = value
-                      %td.color
-                        = "##{rand(256).to_s(16)}#{rand(256).to_s(16)}#{rand(256).to_s(16)}"
+                = pie_chart asset_type.statistics
+
             .asset-name
               = asset_type.name
 

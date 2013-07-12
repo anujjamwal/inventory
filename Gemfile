@@ -22,6 +22,8 @@ gem 'font-awesome-sass-rails'
 gem 'bootstrap-sass'
 gem 'will_paginate'
 gem 'capistrano'
+gem 'chartkick'
+gem 'highcharts-rails'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'

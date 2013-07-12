@@ -1,4 +1,5 @@
-$('.thumbnail').on 'click', '.card', (e)->
-  e.preventDefault()
-  $(this).toggleClass('flipped')
-  false
+$(document).ready ->
+  $('.flip').on 'click', (e)->
+    $(this).siblings('.card').toggleClass('flipped')
+    false
+  return

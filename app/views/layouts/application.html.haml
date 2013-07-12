@@ -3,6 +3,7 @@
   %head
     %title= yield :title || "Inventory"
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body.default-theme
     #notifications
@@ -33,19 +34,4 @@
             = render :partial => 'assets/search_asset'
 
       = yield
-      -#
-      -#%table{'data-visualize' => 'true'}
-      -#  %tr.data
-      -#    %td.label #ee0
-      -#    %td.value 20
-      -#    %td.color #ee0
-      -#  %tr.data
-      -#    %td.label #ee0
-      -#    %td.value 50
-      -#    %td.color #099
-      -#  %tr.data
-      -#    %td.label #ee0
-      -#    %td.value 10
-      -#    %td.color #660
 
-  = javascript_include_tag 'application', 'data-turbolinks-track' => true

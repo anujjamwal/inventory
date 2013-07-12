@@ -14,6 +14,8 @@
 # = require jquery_ujs
 # = require turbolinks
 # = require bootstrap
+# = require highcharts
+# = require highcharts/highcharts-more
 # = require_tree .
 
 $(document).ready ->
