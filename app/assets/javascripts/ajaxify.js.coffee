@@ -1,5 +1,4 @@
 $(document).on 'submit', 'form.ajax', (e)->
-  console.log 'in handler'
   e.preventDefault()
   $form = $(this)
   $.ajax

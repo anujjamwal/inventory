@@ -21,6 +21,7 @@ gem 'haml-rails'
 gem 'font-awesome-sass-rails'
 gem 'bootstrap-sass'
 gem 'will_paginate'
+gem 'capistrano'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
