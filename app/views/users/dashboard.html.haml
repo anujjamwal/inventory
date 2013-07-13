@@ -11,27 +11,22 @@
     %label.hero-end.btn-link.view-more-link{for: 'view-more'} View More
     %ul.assets-tiles.thumbnails
       - AssetType.all.each do |asset_type|
-        - asset_unassigned_count = Asset.unassigned_count(asset_type.id)
+        - asset_unassigned_count = asset_type.unassigned_count
         %li.tile.text-center
           .thumbnail
-            .flip.icon-reply
+            .flip.icon-info-sign
             .card
               .front.face
                 - if asset_unassigned_count > 0
-                  %label.text-center.alert-success.asset-label{'data-url' => assets_path(asset_type_id: asset_type.id, assignment: :unassigned)} Available
+                  %label.text-center.alert-success.asset-label{'data-url' => assets_path(asset_type_id: asset_type.id, assignment: :unassigned)}
+                    = "Available [#{asset_unassigned_count}]"
                 - else
                   %label.text-center.alert-error.asset-label Not Available
                 %img.asset-image{src: asset_type.image}
-                - if asset_unassigned_count > 0
-                  .asset-stats.alert-success{'data-url' => assets_path(asset_type_id: asset_type.id, assignment: :unassigned)}
-                    = asset_unassigned_count
-                - else
-                  .asset-stats.alert-error
-                    = 0
               .back.face
                 = pie_chart asset_type.statistics
 
             .asset-name
-              = asset_type.name
+              = "#{asset_type.name} [#{asset_type.total_asset_count}]"
 
             %button.btn.btn-block{'data-url' => assets_path(asset_type_id: asset_type.id)} View All

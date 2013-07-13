@@ -93,14 +93,8 @@
 
         .flip {
           position: absolute;
-          top: 38px;
-          background: #ddd;
-          left: 6px;
-          width: 40px;
-          height: 25px;
+          top: 28px;
           display: block;
-          padding-top: 8px;
-          border-radius: 28px;
           opacity: 0.2;
           z-index: 9;
           cursor: pointer;
@@ -131,28 +125,6 @@
           height: 240px;
           margin-bottom: 5px;
           overflow: hidden;
-        }
-
-        .asset-stats {
-          position: absolute;
-          top: 40px;
-          right: 15px;
-          min-width: 28px;
-          height: 24px;
-          border-radius: 15px;
-          padding-top: 4px;
-          cursor: default;
-          padding: 0 4px;
-          padding-top: 4px;
-
-          &[data-url] {
-            cursor: pointer;
-            &:hover {
-              border: 1px solid #10971a;
-              width: 26px;
-              height: 22px;
-            }
-          }
         }
 
         .asset-name {
