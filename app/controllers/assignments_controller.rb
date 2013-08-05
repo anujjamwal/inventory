@@ -10,7 +10,7 @@ class AssignmentsController < ApplicationController
 
   private
   def ensure_assignee
-    assignee = Employee.find_by_employee_id params[:assignment][:assignee_id] if params[:assignment][:type] == EmployeeAssignment.name
+    assignee = Employee.find_by_ad_id params[:assignment][:assignee_id] if params[:assignment][:type] == EmployeeAssignment.name
     assignee = Project.find_by_project_code params[:assignment][:assignee_id] if params[:assignment][:type] == ProjectAssignment.name
     @assignee_id = assignee.try(:id)
   end
