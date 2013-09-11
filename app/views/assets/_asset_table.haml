@@ -1,4 +1,5 @@
-- headings = {type: 'Type', asset_id: 'Asset ID', serial: 'Serial No.', company: 'Company', model: 'Model', warranty: 'Warranty', warranty_left: 'Warranty Left (days)', assignment: 'Assignment', action: 'Action'}
+- headings = {type: 'Type', asset_id: 'Asset ID', serial: 'Serial No.', company: 'Company', model: 'Model', warranty: 'Warranty', warranty_left: 'Warranty Left (days)', assignment: 'Assignment'}
+- headings[action] =  'Action' if current_user.admin?
 %table.table.table-hover.table-bordered.assets-list
   %thead
     - headings.each do |c, heading|
@@ -27,5 +28,6 @@
           = asset.warranty_left
         %td.assignment{'data-url' => asset_path(asset) }
           = asset.current_assignment.description
-        %td.action
-          %button.btn{'data-url' => clone_asset_path(id: asset.id)} Clone
+        - current_user.admin?
+          %td.action
+            %button.btn{'data-url' => clone_asset_path(id: asset.id)} Clone

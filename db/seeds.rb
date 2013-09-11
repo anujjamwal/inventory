@@ -1,37 +1,69 @@
 {
-  "Laptop" => {
-    "Initial" => {
-      "General" => [
-        {
-          :name => "Something",
-          :input_element_type => :text,
-          :required => true,
-          :value_fill_expression => "",
-          :default_value => ""        
-        }, 
-      ]
+    "Laptop" => {
+        "Initial" => {
+            "Info" => [
+                {
+                    :name => "RAM",
+                    :input_element_type => :text,
+                    :required => true,
+                    :value_fill_expression => "",
+                    :default_value => ""
+                },
+                {
+                    :name => "MAC Address",
+                    :input_element_type => :text,
+                    :required => true,
+                    :value_fill_expression => "",
+                    :default_value => ""
+                },
+                {
+                    :name => "OS",
+                    :input_element_type => :text,
+                    :required => true,
+                    :value_fill_expression => "",
+                    :default_value => ""
+                },
+                {
+                    :name => "Processor",
+                    :input_element_type => :text,
+                    :required => true,
+                    :value_fill_expression => "",
+                    :default_value => ""
+                },
+            ]
+        }
+    },
+    "Keyboard" => {
+
+    },
+    "Mouse" => {
+
+    },
+    "Monitor" => {
+
     }
-  },
-  "Keyboard" => {
-    
-  },
-  "Mouse" => {
-    
-  },
-  "Monitor" => {
-    
-  }
-}.each do |k,v|
+}.each do |k, v|
   asset_type = AssetType.where(name: k).first_or_create!
-  v.each do |k1,v1|
+  v.each do |k1, v1|
     form = asset_type.forms.where(name: k1).first_or_create!
-    v1.each do |k2,v2|
+    v1.each do |k2, v2|
       attr_group = form.form_attributes_groups.where(name: k2).first_or_create!
       v2.each do |v3|
         attrs = attr_group.form_attributes.where(v3).first_or_create!
       end
     end
   end
+end
+
+{
+    'Laptop' => '/images/macbook-pro-15_250x250.jpg',
+    'Keyboard' => '/images/Keyboard_250x250.png',
+    'Mouse' => '/images/mouse_250x250.jpg',
+    'Monitor' => '/images/monitor_250x250.jpg'
+}.each do |k, v|
+  asset_type = AssetType.where(name: k).first
+  asset_type.image = v
+  asset_type.save
 end
 
 laptop = AssetType.find_by(name: 'Laptop')
@@ -44,11 +76,16 @@ laptop = AssetType.find_by(name: 'Laptop')
   end
 end
 
-[{name: 'Apple 1 year protection', duration_in_days: 365, company_id: Company.first.id}].each do |warranty|
+[
+    {
+        name: 'Apple 1 year protection',
+        duration_in_days: 365,
+        company_id: Company.find_by_name('Apple')
+    }
+].each do |warranty|
   warrant = Warranty.where(name: warranty[:name]).first_or_create!
   warrant.update_attributes! warranty
 end
-
 
 
 {'India' => ['Gurgaon']}.each do |country, offices|
