@@ -1,0 +1,3 @@
+base_api: 'https://my.thoughtworks.com/api/core/v2/users/username/'
+user_id:  ''
+password: ''
